@@ -1,4 +1,4 @@
-name: 'Seekers-Dream Lint'
+name: Seekers-Dream CI Workflow
 
 on:
   push:
