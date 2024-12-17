@@ -3,10 +3,10 @@ name: Seekers-Dream CI Workflow
 on:
   push:
     branches:
-      - main # Trigger workflow only on the dev branch
+      - dev # Trigger workflow only on the dev branch
   pull_request:
     branches:
-      - main
+      - dev
 
 permissions:
   contents: read
