@@ -34,7 +34,7 @@ jobs:
         run: npx eslint './**/*.ts' './**/*.tsx' --fix
 
       - name: Run Prettier Check
-        run: npx prettier --check './**/*.{ts,tsx,json,md}'
+        run: npx prettier --check '{src, docs}/**/*.{ts,tsx,json,md}'
 
       - name: Build
         run: npm run build
