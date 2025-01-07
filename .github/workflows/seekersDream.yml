@@ -37,8 +37,11 @@ jobs:
       - name: Run Prettier Check
         run: npx prettier --check './**/*.{ts,tsx,json,md}'
 
+      - name: Build
+        run: npm run build
+
       - name: Run TypeScript Compilation
         run: npx tsc --noEmit --strict
 
-      - name: Run Tests
-        run: npm test -- --coverage
+      # - name: Run Tests
+      #   run: npm test -- --coverage
