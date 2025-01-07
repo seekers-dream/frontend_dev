@@ -22,14 +22,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: npm ci
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
 
       - name: Run Linters
         run: npx eslint './**/*.ts' './**/*.tsx' --fix
@@ -43,5 +42,5 @@ jobs:
       - name: Run TypeScript Compilation
         run: npx tsc --noEmit --strict
 
-      # - name: Run Tests
-      #   run: npm test -- --coverage
+        # - name: Run Tests
+        #   run: npm test -- --coverage
