@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 jobs:
-  lint-and-test:
+  build:
     name: Lint, Format Check, and Test
     runs-on: ubuntu-latest
 
