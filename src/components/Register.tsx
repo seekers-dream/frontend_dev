@@ -9,6 +9,7 @@ import axiosInstance, {
   setupInterceptorsInstance,
 } from '../axios middleware/axiosInstance';
 import Swal from 'sweetalert2';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function Register() {
   const [firstName, setFirstName] = useState('');
@@ -18,6 +19,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -108,15 +110,28 @@ function Register() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            className="py-2 px-3 w-full my-2 border outline-none"
-            placeholder="Password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <input
+              type="password"
+              name="password"
+              value={password}
+              className="py-2 px-3 w-full my-2 border outline-none"
+              placeholder="Password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {showPassword ? (
+              <FaEye
+                className="absolute top-[21px] right-[13px]"
+                onClick={() => setShowPassword(false)}
+              />
+            ) : (
+              <FaEyeSlash
+                className="absolute top-[21px] right-[13px]"
+                onClick={() => setShowPassword(true)}
+              />
+            )}
+          </div>
 
           <button
             type="submit"
@@ -226,14 +241,27 @@ function Register() {
             </div>
             <div>
               <label htmlFor="">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full  border rounded-md my-1 outline-none py-1 px-3"
-                placeholder="Enter your Password"
-              />
+              <div className="relative">
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full  border rounded-md my-1 outline-none py-1 px-3"
+                  placeholder="Enter your Password"
+                />
+                {showPassword ? (
+                  <FaEye
+                    className="absolute top-[15px] right-[13px]"
+                    onClick={() => setShowPassword(false)}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    className="absolute top-[15px] right-[13px]"
+                    onClick={() => setShowPassword(true)}
+                  />
+                )}
+              </div>
             </div>
             <div className="flex gap-2">
               <input

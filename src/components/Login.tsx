@@ -6,8 +6,7 @@ import SignupReuse from '../reuseable_components/SignupReuse';
 import { useNavigate } from 'react-router-dom';
 import Spinner from './../images/spinner.svg';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FaEye } from 'react-icons/fa';
-import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axiosInstance from '../axios middleware/axiosInstance';
 
 function Login() {
@@ -104,9 +103,9 @@ function Login() {
           {!isValid && (
             <p className="text-red-500 text-sm">Please input a valid email</p>
           )}
-          <div>
+          <div className="relative">
             <input
-              type="text"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               value={password}
               className={`py-2 px-3 w-full my-2 border outline-none ${isPasswordValid ? 'border-gray-300' : 'border-red-500'}`}
@@ -114,7 +113,17 @@ function Login() {
               onChange={handlePassword}
               required
             />
-            <FaEye />
+            {showPassword ? (
+              <FaEye
+                className="absolute top-[21px] right-[13px]"
+                onClick={() => setShowPassword(false)}
+              />
+            ) : (
+              <FaEyeSlash
+                className="absolute top-[21px] right-[13px]"
+                onClick={() => setShowPassword(true)}
+              />
+            )}
           </div>
 
           {!isPasswordValid && (
@@ -204,14 +213,27 @@ function Login() {
                   forgot password
                 </span>
               </div>
-              <input
-                type="text"
-                name="password"
-                value={password}
-                onChange={handlePassword}
-                className={`w-full  border rounded-md my-1 outline-none py-1 px-3 ${isPasswordValid ? 'border-gray-300' : 'border-red-500'}`}
-                placeholder="Enter your Password"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={password}
+                  onChange={handlePassword}
+                  className={`w-full  border rounded-md my-1 outline-none py-1 px-3 ${isPasswordValid ? 'border-gray-300' : 'border-red-500'}`}
+                  placeholder="Enter your Password"
+                />
+                {showPassword ? (
+                  <FaEye
+                    className="absolute top-[15px] right-[13px]"
+                    onClick={() => setShowPassword(false)}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    className="absolute top-[15px] right-[13px]"
+                    onClick={() => setShowPassword(true)}
+                  />
+                )}
+              </div>
               {!isPasswordValid && (
                 <p className="text-red-500 text-sm">
                   Your password should contain a capital <br /> letter, a
