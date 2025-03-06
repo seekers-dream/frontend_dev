@@ -10,6 +10,7 @@ import axiosInstance, {
 } from '../axios middleware/axiosInstance';
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { isAxiosError } from 'axios';
 
 function Register() {
   const [firstName, setFirstName] = useState('');
@@ -20,6 +21,7 @@ function Register() {
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<boolean | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,16 +54,20 @@ function Register() {
         });
         navigate('/login');
       }, 2000);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+
       setFirstName('');
       setLastName('');
       setPhoneNumber('');
       setEmail('');
       setPassword('');
       setClicked(false);
+    } catch (error) {
+      console.error(error);
+      if (isAxiosError(error) && error.response && error?.response.data) {
+        setErrorMessage(true);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,7 +99,7 @@ function Register() {
             onChange={(e) => setLastName(e.target.value)}
           />
           <input
-            type="text"
+            type="number"
             name="phonenumber"
             value={phoneNumber}
             className="py-2 px-3 w-full my-2 border outline-none"
@@ -112,7 +118,7 @@ function Register() {
           />
           <div className="relative">
             <input
-              type="password"
+              type={`${!showPassword ? 'password' : 'text'}`}
               name="password"
               value={password}
               className="py-2 px-3 w-full my-2 border outline-none"
@@ -135,7 +141,7 @@ function Register() {
 
           <button
             type="submit"
-            className="bg-[#001F3F] hover:bg-white text-[white] hover:text-[#001F3F] py-1 text-[20px] px-2 w-full rounded-lg flex justify-center items-center"
+            className={`${loading ? 'bg-white border border-[#001F3F]' : 'bg-[#001F3F]'} hover:bg-white text-[white] hover:text-[#001F3F] py-1 text-[20px] px-2 w-full rounded-lg flex justify-center items-center border-[#001F3F] border`}
             disabled={loading}
           >
             {loading ? (
@@ -146,6 +152,11 @@ function Register() {
               'Submit'
             )}
           </button>
+          {errorMessage ? (
+            <p className="text-red-500 my-2">
+              Email already exist, Please use another email
+            </p>
+          ) : null}
           <p className="text-[12px] my-2">
             Have an account?{' '}
             <span
