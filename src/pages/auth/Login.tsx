@@ -8,15 +8,33 @@ import AuthLayout from '@/layout/AuthLayout';
 import InputField from '@/ui/InputField';
 import { setCredentials } from '@/features/auth/authSlice';
 import { useDispatch } from 'react-redux';
-import { useLoginMutation } from '@/features/auth/api';
-import { LoginPayload } from '@/features/auth/interfaces';
+import {
+  useForgotPasswordMutation,
+  useLoginMutation,
+} from '@/features/auth/api';
+import { LoginPayload, ResendCodePayload } from '@/features/auth/interfaces';
 import { alert } from '@/utils/alert';
 import PasswordInput from '@/ui/PasswordInput';
 import Button from '@/ui/Button';
+import { useState } from 'react';
+import Modal from '@/ui/Modal';
+import {
+  forgotPasswordValidationSchema,
+  loginValidationSchema,
+} from '@/utils/validations';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleClose = () => setIsOpen(false);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const [forgetPassword, { isLoading: isForgetPassword }] =
+    useForgotPasswordMutation();
   const [loginUser, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const initLogin = (values: LoginPayload) => {
@@ -26,10 +44,7 @@ export const Login = () => {
       .unwrap()
       .then((res) => {
         console.log(res);
-        if (res?.error) {
-          console.log(res);
-          return;
-        } else {
+        if (res.data) {
           dispatch(
             setCredentials({
               user: res.data,
@@ -38,13 +53,39 @@ export const Login = () => {
               refreshToken: res.data.refreshToken,
             }),
           );
+          alert({
+            type: 'success',
+            message: 'Login successfully',
+            timer: 2000,
+            cb: () => navigate(`/`),
+          });
         }
+      })
+      .catch((err) => {
+        console.log(err);
         alert({
-          type: 'success',
-          message: 'Login successfully',
-          timer: 2000,
-          cb: () => navigate(`/`),
+          type: 'error',
+          message: err?.message || 'An error occurred',
+          timer: 3000,
         });
+      });
+  };
+
+  const handleForgetPassword = (values: ResendCodePayload) => {
+    forgetPassword(values)
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        if (res) {
+          alert({
+            type: 'success',
+            message: 'Password Reset Link Sent. Check your email',
+            timer: 2000,
+            cb: () => {
+              handleClose();
+            },
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -56,21 +97,26 @@ export const Login = () => {
       });
   };
 
-  const { getFieldProps, touched, errors, handleSubmit } = useFormik({
+  const loginFormik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    // validationSchema: loginValidationSchema,
+    validationSchema: loginValidationSchema,
     onSubmit: (values) => {
       initLogin(values);
     },
   });
 
-  // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-  // const passwordRegex =
-  //   /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const forgotPasswordFormik = useFormik({
+    initialValues: {
+      email: '',
+    },
+    validationSchema: forgotPasswordValidationSchema,
+    onSubmit: (values) => {
+      handleForgetPassword(values);
+    },
+  });
 
   return (
     <AuthLayout>
@@ -82,15 +128,15 @@ export const Login = () => {
           <p className="mt-2 text-base font-medium text-black">
             Enter your creditials to access your account
           </p>
-          <form onSubmit={handleSubmit} className="mt-16 space-y-5">
+          <form onSubmit={loginFormik.handleSubmit} className="mt-16 space-y-5">
             <div>
               <InputField
                 label="Email"
                 name="email"
                 type="email"
-                getFieldProps={getFieldProps}
-                touched={touched.email as boolean}
-                errors={errors.email}
+                getFieldProps={loginFormik.getFieldProps}
+                touched={loginFormik.touched.email as boolean}
+                errors={loginFormik.errors.email}
               />
             </div>
             <div>
@@ -98,14 +144,14 @@ export const Login = () => {
                 <PasswordInput
                   label="Password"
                   name="password"
-                  getFieldProps={getFieldProps}
-                  touched={touched}
-                  errors={errors}
+                  getFieldProps={loginFormik.getFieldProps}
+                  touched={loginFormik.touched}
+                  errors={loginFormik.errors}
                 />
                 <div className="flex justify-end items-center">
                   <span
                     className="text-[#0C2A92] text-[10px] cursor-pointer"
-                    onClick={() => navigate('/forgot-password')}
+                    onClick={handleOpen}
                   >
                     Forgot password
                   </span>
@@ -123,14 +169,6 @@ export const Login = () => {
               loading={isLoading}
               disabled={isLoading}
             />
-            {/* {loading ? (
-                <div className="flex justify-center items-center border rounded-md">
-                  <img src={Spinner} alt="Spinner" className="w-5 h-5" />
-                </div>
-              ) : (
-                'Login'
-              )}
-            </button> */}
           </form>
           <div className="relative my-2">
             <div className="w-full h-[1px] bg-gray-400 my-4"></div>
@@ -162,6 +200,49 @@ export const Login = () => {
           </div>
         </div>
       </div>
+
+      <Modal isOpen={isOpen} onClose={handleClose} closeOnOutsideClick={false}>
+        <div className="rounded-[16px] lg:w-[700px] w-[345px] px-5 pt-10 pb-3">
+          <div>
+            <h1 className="text-primary text-center text-2xl md:text-4xl font-semibold">
+              Forgot your password?
+            </h1>
+            <p className="py-5 text-center max-w-[596px] mx-auto">
+              Enter your email and we’ll send you instructions on how to reset
+              your password.{' '}
+            </p>
+
+            <form
+              className="items-center gap-5"
+              onSubmit={forgotPasswordFormik.handleSubmit}
+            >
+              <div className="max-w-[400px] mx-auto">
+                <InputField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  getFieldProps={forgotPasswordFormik.getFieldProps}
+                  touched={forgotPasswordFormik.touched.email as boolean}
+                  errors={forgotPasswordFormik.errors.email}
+                />
+                <Button
+                  label="Send"
+                  className="w-full mt-5 "
+                  type="submit"
+                  loading={isForgetPassword}
+                />
+
+                <p
+                  onClick={handleClose}
+                  className="text-[#7B7B7B] text-center mt-5"
+                >
+                  Back to Sign In
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Modal>
     </AuthLayout>
   );
 };

@@ -17,12 +17,26 @@ import { useFormik } from 'formik';
 import { registerValidationSchema } from '@/utils/validations';
 import Modal from '@/ui/Modal';
 import { useEffect, useRef, useState } from 'react';
+import { formatTime } from '@/utils/helpers';
 
 export const Register = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
-  const [remainingTime, setRemainingTime] = useState(900); // 15 minutes in seconds
+  const [remainingTime, setRemainingTime] = useState(900);
+  const [verificationCode, setVerificationCode] = useState([
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+  ]);
+  const inputRefs = useRef<HTMLInputElement[]>([]);
+  const [verifyEmail, { isLoading: isConfirming }] = useVerifyEmailMutation();
+  const [resendCode, { isLoading: isResending }] = useResendCodeMutation();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [registerUser, { isLoading }] = useRegisterMutation();
 
   const handleClose = () => setIsOpen(false);
 
@@ -40,15 +54,6 @@ export const Register = () => {
     }
   }, [isOpen, remainingTime]);
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds
-      .toString()
-      .padStart(2, '0')}`;
-  };
-
-  const [registerUser, { isLoading }] = useRegisterMutation();
   const initRegister = (values: RegisterPayload) => {
     console.log(values);
 
@@ -92,19 +97,6 @@ export const Register = () => {
       initRegister(values);
     },
   });
-
-  const [verificationCode, setVerificationCode] = useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ]);
-  const inputRefs = useRef<HTMLInputElement[]>([]);
-  const [verifyEmail, { isLoading: isConfirming }] = useVerifyEmailMutation();
-  const [resendCode, { isLoading: isResending }] = useResendCodeMutation();
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleVerify = async () => {
     const otp = verificationCode.join('');
@@ -335,7 +327,6 @@ export const Register = () => {
                   value={digit}
                   onChange={(e) => handleChangeText(e.target.value, index)}
                   onKeyDown={(e) => handleKeyPress(e, index)}
-                  // placeholder=""
                   maxLength={1}
                   className={`border bg-[#D9D9D9] rounded-lg outline-primary shadow-2xs  p-3 text-center w-12 h-16 ${
                     activeIndex === index
