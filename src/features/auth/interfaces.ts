@@ -31,7 +31,7 @@ export interface LoginPayload {
 export interface ResetPasswordPayload {
   password: string;
   confirmPassword: string;
-  token: string;
+  token?: string;
 }
 
 export interface VerifyPayload {

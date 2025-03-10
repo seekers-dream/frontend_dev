@@ -1,4 +1,4 @@
-import { object, string, ref, number } from 'yup';
+import { object, string, ref } from 'yup';
 
 export const loginValidationSchema = () => {
   return object({
