@@ -44,10 +44,12 @@ export const baseQueryWithReauth: BaseQueryFn<
     const userData = JSON.parse(localStorage.getItem('@seeker_user') || '{}');
     const refreshToken = userData?.refreshToken;
 
+    console.log(refreshToken);
+
     if (refreshToken) {
       const refreshResult = await baseQuery(
         {
-          url: '/auth/refresh-token', // Your refresh token endpoint
+          url: '/refresh-token',
           method: 'POST',
           body: { refreshToken: refreshToken },
         },
@@ -56,19 +58,16 @@ export const baseQueryWithReauth: BaseQueryFn<
       );
 
       const refreshData = refreshResult?.data as RefreshTokenResponse;
-      if (refreshData?.data) {
+
+      if (refreshData?.accessToken) {
         // If refresh is successful, store new tokens
-        const newAccessToken = refreshData.data.accessToken;
+        const newAccessToken = refreshData.accessToken;
         const updatedUserData = {
           ...userData, // Keep all other user info intact
           accessToken: newAccessToken,
         };
-        localStorage.setItem(
-          '@propify_admin_user',
-          JSON.stringify(updatedUserData),
-        );
+        localStorage.setItem('@seeker_user', JSON.stringify(updatedUserData));
 
-        console.log(updatedUserData);
         // Update Redux store with new tokens
         api.dispatch(
           setCredentials({

@@ -1,4 +1,4 @@
-import { object, string, ref, number } from 'yup';
+import { object, string, ref } from 'yup';
 
 export const loginValidationSchema = () => {
   return object({
@@ -57,44 +57,13 @@ export const changePasswordValidationSchema = () => {
   });
 };
 
-export const bigTaxiValidationSchema = () => {
+export const resetPasswordValidationSchema = () => {
   return object({
-    stationName: string().required('First Name is required'),
-    price: string().required('Price is required'),
-    from: string().required('From is required'),
-    to: string().required('To is required'),
-    miles: string().required('Kilometer is required'),
-    time: string().required('Time is required'),
-  });
-};
-
-export const pricingValidationSchema = () => {
-  return object({
-    earningCommission: number().required('Required'),
-    pricePerKm: number().required('Required'),
-    cancelationRidePercent: number().required('Required'),
-  });
-};
-
-export const faqValidationSchema = () => {
-  return object({
-    answer: string().required('Answer is required'),
-    question: string().required('Question is required'),
-  });
-};
-
-export const aboutValidationSchema = () => {
-  return object({
-    about: string().required('About is required'),
-  });
-};
-
-export const addStaffValidationSchema = () => {
-  return object({
-    email: string().required('Email is required'),
-    firstName: string().required('First Name is required'),
-    lastName: string().required('LastName is required'),
-    role: string().required('Role is required'),
-    roleDescription: string().required('Role Description is required'),
+    password: string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters'),
+    confirmPassword: string()
+      .required('Confirm Password is required')
+      .oneOf([ref('password')], 'Passwords must match'),
   });
 };

@@ -1,7 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '@/utils/baseQuery';
 import {
-  CreatePasswordPayload,
   IResponse,
   LoginPayload,
   LoginResponse,
@@ -29,13 +28,7 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
-    createPassword: builder.mutation<LoginResponse, CreatePasswordPayload>({
-      query: (credentials) => ({
-        url: `/admin/auth/createPassword`,
-        method: 'POST',
-        body: credentials,
-      }),
-    }),
+
     verifyEmail: builder.mutation<IResponse, VerifyPayload>({
       query: (payload) => ({
         url: `/verify-email`,
@@ -44,15 +37,15 @@ export const authApi = createApi({
       }),
     }),
     resetPassword: builder.mutation<IResponse, ResetPasswordPayload>({
-      query: (payload) => ({
-        url: `/admin/auth/resetPassword/${payload.resetToken}`,
+      query: ({ password, confirmPassword, token }) => ({
+        url: `/reset?token=${token}`,
         method: 'POST',
-        body: payload,
+        body: { password, confirmPassword },
       }),
     }),
-    forgotPassword: builder.mutation<IResponse, void>({
+    forgotPassword: builder.mutation<IResponse, ResendCodePayload>({
       query: (payload) => ({
-        url: `/admin/auth/forgotPassword`,
+        url: `/forgot`,
         method: 'POST',
         body: payload,
       }),
@@ -66,13 +59,13 @@ export const authApi = createApi({
     }),
     logout: builder.mutation<IResponse, void>({
       query: () => ({
-        url: `/admin/auth/signout`,
+        url: `/logout`,
         method: 'POST',
       }),
     }),
-    verifyToken: builder.query<IResponse, void>({
+    getCurrentUser: builder.query<IResponse, void>({
       query: () => ({
-        url: `/admin/auth/verifyToken`,
+        url: `/currentuser`,
         method: 'GET',
       }),
     }),
@@ -82,11 +75,10 @@ export const authApi = createApi({
 export const {
   useRegisterMutation,
   useLoginMutation,
-  useCreatePasswordMutation,
   useVerifyEmailMutation,
   useResetPasswordMutation,
   useForgotPasswordMutation,
   useResendCodeMutation,
   useLogoutMutation,
-  useVerifyTokenQuery,
+  useGetCurrentUserQuery,
 } = authApi;

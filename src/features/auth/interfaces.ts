@@ -9,13 +9,9 @@ export interface IResponse {
 export interface User extends IResponse {
   refreshToken: string;
   token: string;
-  adminId: string;
   firstName: string;
   lastName: string;
   email: string;
-  is2FA: boolean;
-  status: string;
-  role: string;
 }
 
 export interface RegisterPayload {
@@ -24,13 +20,7 @@ export interface RegisterPayload {
   email: string;
 }
 
-export interface CreatePasswordPayload {
-  password: string;
-  confirmPassword: string;
-}
-
 export interface LoginResponse extends IResponse {
-  message: string;
   data: User;
 }
 export interface LoginPayload {
@@ -41,7 +31,7 @@ export interface LoginPayload {
 export interface ResetPasswordPayload {
   password: string;
   confirmPassword: string;
-  resetToken: string;
+  token?: string;
 }
 
 export interface VerifyPayload {
@@ -53,7 +43,5 @@ export interface ResendCodePayload {
 }
 
 export interface RefreshTokenResponse {
-  data: {
-    accessToken: string;
-  };
+  accessToken: string;
 }
