@@ -43,7 +43,5 @@ export interface ResendCodePayload {
 }
 
 export interface RefreshTokenResponse {
-  data: {
-    accessToken: string;
-  };
+  accessToken: string;
 }

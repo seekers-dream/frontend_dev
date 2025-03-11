@@ -65,7 +65,7 @@ export const Login = () => {
         console.log(err);
         alert({
           type: 'error',
-          message: err?.message || 'An error occurred',
+          message: err?.data?.message || 'An error occurred',
           timer: 3000,
         });
       });

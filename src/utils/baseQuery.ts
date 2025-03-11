@@ -37,17 +37,19 @@ export const baseQueryWithReauth: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   // If the request fails with a 401 Unauthorized error
-  if (result?.error?.status === 403) {
+  if (result?.error?.status === 401) {
     console.log('Access token expired, attempting to refresh...');
 
     // Try to refresh the token using the refresh token
     const userData = JSON.parse(localStorage.getItem('@seeker_user') || '{}');
     const refreshToken = userData?.refreshToken;
 
+    console.log(refreshToken);
+
     if (refreshToken) {
       const refreshResult = await baseQuery(
         {
-          url: '/auth/refresh-token', // Your refresh token endpoint
+          url: '/refresh-token',
           method: 'POST',
           body: { refreshToken: refreshToken },
         },
@@ -56,16 +58,16 @@ export const baseQueryWithReauth: BaseQueryFn<
       );
 
       const refreshData = refreshResult?.data as RefreshTokenResponse;
-      if (refreshData?.data) {
+
+      if (refreshData?.accessToken) {
         // If refresh is successful, store new tokens
-        const newAccessToken = refreshData.data.accessToken;
+        const newAccessToken = refreshData.accessToken;
         const updatedUserData = {
           ...userData, // Keep all other user info intact
           accessToken: newAccessToken,
         };
         localStorage.setItem('@seeker_user', JSON.stringify(updatedUserData));
 
-        console.log(updatedUserData);
         // Update Redux store with new tokens
         api.dispatch(
           setCredentials({
