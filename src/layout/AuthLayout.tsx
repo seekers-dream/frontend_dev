@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import register from 'assets/images/signup_image.png';
+import authImg from 'assets/images/authImg.png';
 interface AuthLayoutProps {
   children: ReactNode;
 }
@@ -7,14 +7,14 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
     <div className="flex items-center justify-between">
-      <div className="w-full md:w-1/2">{children}</div>
       <div className="hidden md:block md:w-1/2">
         <img
-          src={register}
+          src={authImg}
           alt="image"
-          className="h-screen w-full object-cover"
+          className="min-h-screen w-full object-cover"
         />
       </div>
+      <div className="w-full md:w-1/2 bg-[#F7F7F7]">{children}</div>
     </div>
   );
 };

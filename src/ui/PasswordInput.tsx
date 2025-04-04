@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
+import { FaRegEyeSlash } from 'react-icons/fa6';
+import { FaRegEye } from 'react-icons/fa6';
 
 interface PasswordInputProps {
   label?: string;
@@ -18,7 +20,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   getFieldProps,
   touched,
   errors,
-  required = true,
+  required = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -40,7 +42,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           type={showPassword ? 'text' : 'password'}
           id={name}
           {...getFieldProps(name)}
-          className={`outline-none border border-[#D0D5DD] py-2 px-3  shadow-xs w-full  rounded-lg mt-1
+          className={`outline-none border text-sm border-[#D0D5DD] py-2 px-3  shadow-xs w-full  rounded-lg mt-1
                 ${touched[name] && errors[name] ? 'border-red-500' : ''}
               `}
         />
@@ -49,7 +51,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           onClick={togglePasswordVisibility}
           className="absolute inset-y-0 top-2 right-0 pr-3 flex items-center text-sm leading-5"
         >
-          {showPassword ? 'Hide' : 'Show'}
+          {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
         </button>
       </div>
       {touched[name] && errors[name] && (

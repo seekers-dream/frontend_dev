@@ -10,6 +10,10 @@ export default {
           200: '#888883',
         },
       },
+      backgroundImage: {
+        'hero-pattern': "url('./src/assets/images/hero-bg.jpg')",
+        'footer-texture': "url('./src/assets/images/footer-texture.png')",
+      },
     },
   },
   plugins: [],

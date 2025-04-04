@@ -1,4 +1,3 @@
-import or from 'assets/images/or.png';
 import Facebook from 'assets/images/Facebook.png';
 import Google from 'assets/images/google.png';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +22,12 @@ import {
   loginValidationSchema,
 } from '@/utils/validations';
 
-export const Login = () => {
+interface LoginProps {
+  onClose: () => void;
+  openRegister: () => void;
+}
+
+export const Login = ({ onClose, openRegister }: LoginProps) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -120,18 +124,29 @@ export const Login = () => {
 
   return (
     <AuthLayout>
-      <div className="max-w-[458px] px-3 mx-auto flex justify-center bg-white ">
+      <div className="max-w-[458px] px-3 mx-auto flex justify-center  ">
         <div>
-          <h3 className="my-3 text-black font-medium  text-2xl md:text-[32px]">
-            Welcome Back!
+          <h3 className=" text-center text-black font-medium  text-2xl md:text-[32px]">
+            Log In
           </h3>
-          <p className="mt-2 text-base font-medium text-black">
-            Enter your creditials to access your account
-          </p>
-          <form onSubmit={loginFormik.handleSubmit} className="mt-16 space-y-5">
+          <div className="my-2 text-center text-sm">
+            <p>
+              Don't have an account?
+              <span
+                className="text-[#090C1B] pl-2 underline cursor-pointer"
+                onClick={() => {
+                  onClose();
+                  openRegister();
+                }}
+              >
+                Sign up
+              </span>
+            </p>
+          </div>
+          <form onSubmit={loginFormik.handleSubmit} className="mt-10 space-y-5">
             <div>
               <InputField
-                label="Email"
+                placeholder="Email"
                 name="email"
                 type="email"
                 getFieldProps={loginFormik.getFieldProps}
@@ -142,25 +157,29 @@ export const Login = () => {
             <div>
               <div>
                 <PasswordInput
-                  label="Password"
+                  placeholder="Password"
                   name="password"
                   getFieldProps={loginFormik.getFieldProps}
                   touched={loginFormik.touched}
                   errors={loginFormik.errors}
                 />
-                <div className="flex justify-end items-center">
-                  <span
-                    className="text-[#0C2A92] text-[10px] cursor-pointer"
-                    onClick={handleOpen}
-                  >
-                    Forgot password
-                  </span>
-                </div>
               </div>
             </div>
-            <div className="flex gap-2">
-              <input type="checkbox" />
-              <p className="text-[#000000] my-4">Remember for 30 days</p>
+            <div className="flex justify-between items-center mt-4">
+              <div className="flex items-center gap-2">
+                <input type="checkbox" />
+                <p className="text-[#000000] text-sm my-4">
+                  Remember for 30 days
+                </p>
+              </div>
+              <div className="flex justify-end items-center">
+                <span
+                  className="text-[#090C1B] text-sm cursor-pointer"
+                  onClick={handleOpen}
+                >
+                  Forgot password
+                </span>
+              </div>
             </div>
             <Button
               type="submit"
@@ -170,14 +189,15 @@ export const Login = () => {
               disabled={isLoading}
             />
           </form>
-          <div className="relative my-2">
-            <div className="w-full h-[1px] bg-gray-400 my-4"></div>
-            <div className="flex justify-center">
-              <img src={or} alt="or" className="absolute top-[-5px]" />
-            </div>
+          <div className="flex items-center justify-center my-4">
+            <hr className="w-full border-t border-[#999999]" />
+            <span className="px-2 text-[10px] w-[200px] mx-auto block text-gray-500">
+              or Login with
+            </span>
+            <hr className="w-full border-t border-[#999999]" />
           </div>
           {/* oauth authentication */}
-          <div className="flex justify-between gap-1 md:gap-4 mt-16">
+          <div className="flex justify-between gap-1 md:gap-4">
             <div className="flex gap-2 border rounded-md py-1 px-2 items-center cursor-pointer">
               <img src={Google} alt="Google" />
               <span className="text-xs">Sign in with Google</span>
@@ -186,17 +206,6 @@ export const Login = () => {
               <img src={Facebook} alt="Facebook" />
               <span className="text-xs">Sign in with Facebook</span>
             </div>
-          </div>
-          <div className="my-2 text-center text-sm">
-            <p>
-              Don't have an account?
-              <span
-                className="text-[#0F3DDE] pl-2 cursor-pointer"
-                onClick={() => navigate('/register')}
-              >
-                sign up
-              </span>
-            </p>
           </div>
         </div>
       </div>
@@ -207,7 +216,7 @@ export const Login = () => {
             <h1 className="text-primary text-center text-2xl md:text-4xl font-semibold">
               Forgot your password?
             </h1>
-            <p className="py-5 text-center max-w-[596px] mx-auto">
+            <p className="py-5 text-[#999999] text-center max-w-[596px] mx-auto">
               Enter your email and we’ll send you instructions on how to reset
               your password.{' '}
             </p>
@@ -218,7 +227,7 @@ export const Login = () => {
             >
               <div className="max-w-[400px] mx-auto">
                 <InputField
-                  label="Email"
+                  placeholder="Email"
                   name="email"
                   type="email"
                   getFieldProps={forgotPasswordFormik.getFieldProps}
@@ -234,9 +243,9 @@ export const Login = () => {
 
                 <p
                   onClick={handleClose}
-                  className="text-[#7B7B7B] text-center mt-5"
+                  className="text-[#7B7B7B] cursor-pointer text-center mt-5"
                 >
-                  Back to Sign In
+                  Back to Log In
                 </p>
               </div>
             </form>

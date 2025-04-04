@@ -20,7 +20,7 @@ const InputTextArea: React.FC<TextAreaProps> = ({
   getFieldProps,
   touched,
   errors,
-  required = true,
+  required = false,
 }) => {
   return (
     <div>
@@ -37,7 +37,7 @@ const InputTextArea: React.FC<TextAreaProps> = ({
         {...getFieldProps(name)}
         placeholder={placeholder}
         rows={rows}
-        className={`outline-none border border-[#D0D5DD] shadow-xs w-full py-2 px-3  rounded-lg mt-2
+        className={`outline-none text-sm border border-[#D0D5DD] shadow-xs w-full py-2 px-3  rounded-lg mt-2
                 ${touched && errors ? 'border-red-500' : ''}
               `}
       />

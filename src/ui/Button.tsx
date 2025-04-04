@@ -1,4 +1,4 @@
-import Loader from '@/components/Loader';
+import Loader from '@/components/loader/Loader';
 import React from 'react';
 
 interface ButtonProps {
@@ -8,6 +8,7 @@ interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   className?: string;
+  icon?: React.ReactNode | null;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   loading = false,
   className = '',
+  icon = null,
 }) => {
   return (
     <button
@@ -34,6 +36,7 @@ const Button: React.FC<ButtonProps> = ({
       ) : (
         label
       )}
+      {icon && icon}
     </button>
   );
 };
