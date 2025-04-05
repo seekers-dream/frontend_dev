@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Button from '@/ui/Button';
-import { ILogo } from '@/utils/icons';
+import ILogo from '@/assets/svg/logo.svg?react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CiMenuBurger } from 'react-icons/ci';
 import { LiaTimesSolid } from 'react-icons/lia';
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { RxAvatar } from 'react-icons/rx';
 import Modal from '@/ui/Modal';
 import { Login, Register } from '@/pages';
@@ -20,7 +19,11 @@ const navLinks = [
   },
   {
     label: 'Properties',
-    url: '#',
+    url: '/properties',
+  },
+  {
+    label: 'Logistics',
+    url: '/logistics',
   },
   {
     label: 'Contact us',
@@ -49,10 +52,8 @@ const Navbar = ({ background }: NavbarProps) => {
   };
   const isLoggedin = false;
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isUserMenu, setIsUserMenu] = useState(false);
-  const dropdownRef = useRef<HTMLLIElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
@@ -64,20 +65,7 @@ const Navbar = ({ background }: NavbarProps) => {
     setIsMobile(!isMobile);
   };
 
-  const handleProductsClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  ) => {
-    e.preventDefault();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
   const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsDropdownOpen(false);
-    }
     if (
       mobileMenuRef.current &&
       !mobileMenuRef.current.contains(event.target as Node)
@@ -109,69 +97,15 @@ const Navbar = ({ background }: NavbarProps) => {
               <li
                 key={link.label}
                 className="relative text-white font-semibold"
-                ref={link.label === 'Properties' ? dropdownRef : null}
               >
-                {link.label === 'Properties' ? (
-                  <Link
-                    to={link.url}
-                    onClick={handleProductsClick}
-                    className="flex gap-2  items-center"
-                  >
-                    {link.label}
-
-                    <MdOutlineKeyboardArrowDown
-                      size={20}
-                      className={`${
-                        isDropdownOpen ? 'rotate-180' : ''
-                      } transition-transform duration-300`}
-                    />
-                  </Link>
-                ) : (
-                  <NavLink
-                    to={link.url}
-                    className={({ isActive }) =>
-                      isActive ? 'text-white' : 'hover:underline'
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                )}
-                {link.label === 'Properties' && isDropdownOpen && (
-                  <ul className="absolute p-2  left-0 mt-2 w-72 bg-white shadow-lg border border-[#EAECF0] rounded">
-                    <li className="px-2 py-2  text-sm hover:bg-gray-100 cursor-pointer">
-                      <Link
-                        to="/products/articles"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        Articles, videos, and guides by experts on sex.
-                      </Link>
-                    </li>
-                    <li className="px-2 py-2  text-sm border-[#D3D8DE] border-y cursor-pointer hover:bg-gray-100">
-                      <Link
-                        to="/products/courses"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        Courses or workshops for registered users.
-                      </Link>
-                    </li>
-                    <li className="px-2 py-2  text-sm border-[#D3D8DE] cursor-pointer border-b hover:bg-gray-100">
-                      <Link
-                        to="/products/courses"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        Free and premium content based on user subscriptions.
-                      </Link>
-                    </li>
-                    <li className="px-2 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-                      <Link
-                        to="/products/interactive"
-                        onClick={() => setIsDropdownOpen(false)}
-                      >
-                        Interactive Q&A with specialists.
-                      </Link>
-                    </li>
-                  </ul>
-                )}
+                <NavLink
+                  to={link.url}
+                  className={({ isActive }) =>
+                    isActive ? 'text-white' : 'hover:underline'
+                  }
+                >
+                  {link.label}
+                </NavLink>
               </li>
             ))}
           </ul>

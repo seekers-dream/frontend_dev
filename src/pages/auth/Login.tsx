@@ -124,7 +124,7 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
 
   return (
     <AuthLayout>
-      <div className="max-w-[458px] px-3 mx-auto flex justify-center  ">
+      <div className="max-w-[458px] py-10  md:py-0 px-3 mx-auto flex justify-center  ">
         <div>
           <h3 className=" text-center text-black font-medium  text-2xl md:text-[32px]">
             Log In
@@ -216,7 +216,7 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
             <h1 className="text-primary text-center text-2xl md:text-4xl font-semibold">
               Forgot your password?
             </h1>
-            <p className="py-5 text-[#999999] text-center max-w-[596px] mx-auto">
+            <p className="py-5 text-[#999999] text-center max-w-[500px] mx-auto">
               Enter your email and we’ll send you instructions on how to reset
               your password.{' '}
             </p>

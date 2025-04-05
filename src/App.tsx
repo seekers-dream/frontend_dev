@@ -10,6 +10,8 @@ function App() {
   const isAuthPages =
     location.pathname === '/reset' || location.pathname === '/';
 
+  const isFooter = location.pathname === '/reset';
+
   return (
     <div>
       {!isAuthPages && <Navbar background="bg-white" />}
@@ -29,7 +31,7 @@ function App() {
           }
         />
       </Routes>
-      {!isAuthPages && <Footer />}
+      {!isFooter && <Footer />}
     </div>
   );
 }

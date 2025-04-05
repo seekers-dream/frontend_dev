@@ -11,6 +11,9 @@ import about6 from '@/assets/images/about6.png';
 import about7 from '@/assets/images/about7.png';
 import about8 from '@/assets/images/about8.png';
 import Properties from './sections/Properties';
+import Testimonials from './sections/Testimonials';
+import Faq from './sections/Faq';
+import Ready from './sections/Ready';
 export const Home = () => {
   return (
     <div>
@@ -24,6 +27,7 @@ export const Home = () => {
         about2={about2}
         about3={about3}
         about4={about4}
+        link="/about"
       />
       <AboutSection
         title="About SeekersDream"
@@ -33,9 +37,13 @@ export const Home = () => {
         about2={about6}
         about3={about7}
         about4={about8}
+        link="/logistics"
       />
       <Stats />
       <Properties />
+      <Testimonials />
+      <Faq />
+      <Ready />
     </div>
   );
 };

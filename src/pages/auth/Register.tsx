@@ -205,7 +205,7 @@ export const Register = ({ onClose, openLogin }: RegisterProps) => {
 
   return (
     <AuthLayout>
-      <div className="max-w-[458px] mx-auto px-3 flex justify-center ">
+      <div className="max-w-[458px] mx-auto py-10  md:py-0 px-3 flex justify-center ">
         <div>
           <h3 className="my-3 text-black font-medium text-center text-2xl md:text-[32px]">
             Create an account
@@ -225,25 +225,27 @@ export const Register = ({ onClose, openLogin }: RegisterProps) => {
             </p>
           </div>
           <form action="" onSubmit={handleSubmit} className="space-y-5 mt-10">
-            <div>
-              <InputField
-                placeholder="First Name"
-                name="firstName"
-                type="text"
-                getFieldProps={getFieldProps}
-                touched={touched.firstName as boolean}
-                errors={errors.firstName}
-              />
-            </div>
-            <div>
-              <InputField
-                placeholder="Last Name"
-                name="lastName"
-                type="text"
-                getFieldProps={getFieldProps}
-                touched={touched.lastName as boolean}
-                errors={errors.lastName}
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <InputField
+                  placeholder="First Name"
+                  name="firstName"
+                  type="text"
+                  getFieldProps={getFieldProps}
+                  touched={touched.firstName as boolean}
+                  errors={errors.firstName}
+                />
+              </div>
+              <div>
+                <InputField
+                  placeholder="Last Name"
+                  name="lastName"
+                  type="text"
+                  getFieldProps={getFieldProps}
+                  touched={touched.lastName as boolean}
+                  errors={errors.lastName}
+                />
+              </div>
             </div>
 
             <div>

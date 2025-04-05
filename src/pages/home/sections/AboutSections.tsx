@@ -1,5 +1,6 @@
 import ArrowUp from '@/assets/svg/arrow-up-right.svg?react';
 import HeadingTag from '@/components/headingTag/HeadingTag';
+import { useNavigate } from 'react-router-dom';
 
 interface AboutSectionProps {
   title: string;
@@ -9,6 +10,7 @@ interface AboutSectionProps {
   about2: string;
   about3: string;
   about4: string;
+  link: string;
 }
 
 const AboutSection = ({
@@ -19,7 +21,10 @@ const AboutSection = ({
   about2,
   about3,
   about4,
+  link,
 }: AboutSectionProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="py-10">
       <div className="w-[90%] mx-auto ">
@@ -63,14 +68,20 @@ const AboutSection = ({
           <div>
             <img src={about4} alt="image" className="rounded-2xl w-full" />
           </div>
-          <div className="hidden  text-center md:flex flex-col  justify-center items-center gap-2  rounded-2xl h-[320px] cursor-pointer">
+          <div
+            onClick={() => navigate(link)}
+            className="hidden  text-center md:flex flex-col  justify-center items-center gap-2  rounded-2xl h-[320px] cursor-pointer"
+          >
             <div className="border border-primary rounded-full size-[72px] flex justify-center items-center">
               <ArrowUp />
             </div>
-            More Projects
+            More
           </div>
-          <div className="border border-primary h-[48px] md:hidden text-center flex justify-center items-center gap-5  rounded-full cursor-pointer">
-            More Projects
+          <div
+            onClick={() => navigate(link)}
+            className="border border-primary h-[48px] md:hidden text-center flex justify-center items-center gap-5  rounded-full cursor-pointer"
+          >
+            More
             <ArrowUp />
           </div>
         </div>

@@ -1,20 +1,49 @@
 import HeadingTag from '@/components/headingTag/HeadingTag';
-import TabSwitch from '@/components/tabSwitch/TabSwitch';
-import { useState } from 'react';
+import propertyImg from '@/assets/images/propertyImg.jpg';
+import PropertyCard from '@/components/cards/PropertyCard';
+import Button from '@/ui/Button';
+import { useNavigate } from 'react-router-dom';
+// import TabSwitch from '@/components/tabSwitch/TabSwitch';
+// import { useState } from 'react';
+
+const properties = [
+  {
+    id: 1,
+    image: propertyImg,
+    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
+    name: 'Family House',
+    amount: 750000,
+  },
+  {
+    id: 2,
+    image: propertyImg,
+    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
+    name: 'Family House',
+    amount: 750000,
+  },
+  {
+    id: 3,
+    image: propertyImg,
+    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
+    name: 'Family House',
+    amount: 750000,
+  },
+];
 
 const Properties = () => {
-  const [activeTab, setActiveTab] = useState('all');
+  const navigate = useNavigate();
+  //   const [activeTab, setActiveTab] = useState('all');
 
-  const tabs = [
-    { name: 'all', label: 'All Properties' },
-    { name: 'logistics', label: 'Logistics' },
-    { name: 'family-house', label: 'Family House' },
-    { name: 'villa', label: 'Villa' },
-    { name: 'apartment', label: 'Apartment' },
-  ];
-  const handleTabClick = (tabName: string) => {
-    setActiveTab(tabName);
-  };
+  //   const tabs = [
+  //     { name: 'all', label: 'All Properties' },
+  //     { name: 'logistics', label: 'Logistics' },
+  //     { name: 'family-house', label: 'Family House' },
+  //     { name: 'villa', label: 'Villa' },
+  //     { name: 'apartment', label: 'Apartment' },
+  //   ];
+  //   const handleTabClick = (tabName: string) => {
+  //     setActiveTab(tabName);
+  //   };
 
   return (
     <div>
@@ -35,11 +64,27 @@ const Properties = () => {
             </p>
           </div>
         </div>
-        <div className="md:flex justify-center mt-10">
+        {/* <div className="md:flex justify-center mt-10">
           <TabSwitch
             tabs={tabs}
             activeTab={activeTab}
             handleTabClick={handleTabClick}
+          />
+        </div> */}
+
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-3 mt-5">
+          {properties.map((property, idx) => (
+            <div key={idx}>
+              <PropertyCard property={property} />
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center mt-10">
+          <Button
+            label="Explore More"
+            type="button"
+            onClick={() => navigate('/properties')}
           />
         </div>
       </div>
