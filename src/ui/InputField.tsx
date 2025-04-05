@@ -22,7 +22,7 @@ const InputField: React.FC<InputFieldProps> = ({
   getFieldProps,
   touched,
   errors,
-  required = true,
+  required = false,
 }) => {
   return (
     <div>
@@ -34,7 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
         id={name}
         {...getFieldProps(name)}
         placeholder={placeholder}
-        className={`${className} outline-none border border-[#D9D9D9] shadow-xs w-full py-2 px-3 rounded-lg mt-1
+        className={`${className} outline-none text-sm border border-[#D9D9D9] shadow-xs w-full py-2 px-3 rounded-lg mt-1
                 ${touched && errors ? 'border-red-500' : ''}
               `}
       />

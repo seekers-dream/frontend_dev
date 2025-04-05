@@ -1,4 +1,3 @@
-import or from 'assets/images/or.png';
 import Facebook from 'assets/images/Facebook.png';
 import Google from 'assets/images/google.png';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +18,12 @@ import Modal from '@/ui/Modal';
 import { useEffect, useRef, useState } from 'react';
 import { formatTime } from '@/utils/helpers';
 
-export const Register = () => {
+interface RegisterProps {
+  onClose: () => void;
+  openLogin: () => void;
+}
+
+export const Register = ({ onClose, openLogin }: RegisterProps) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -201,38 +205,52 @@ export const Register = () => {
 
   return (
     <AuthLayout>
-      <div className="max-w-[458px] mx-auto px-3 flex justify-center bg-white ">
+      <div className="max-w-[458px] mx-auto py-10  md:py-0 px-3 flex justify-center ">
         <div>
-          <h3 className="my-3 text-black font-medium text-2xl md:text-[32px]">
-            Welcome to SeekersDream
+          <h3 className="my-3 text-black font-medium text-center text-2xl md:text-[32px]">
+            Create an account
           </h3>
-          <p className="font-medium text-base pt-2">Create new account</p>
-
-          <form action="" onSubmit={handleSubmit} className="space-y-5 mt-16">
-            <div>
-              <InputField
-                label="First Name"
-                name="firstName"
-                type="text"
-                getFieldProps={getFieldProps}
-                touched={touched.firstName as boolean}
-                errors={errors.firstName}
-              />
+          <div className="my-2 text-center text-sm">
+            <p>
+              Already have an account?
+              <span
+                className="text-[#090C1B] pl-2 underline cursor-pointer"
+                onClick={() => {
+                  onClose();
+                  openLogin();
+                }}
+              >
+                Login
+              </span>
+            </p>
+          </div>
+          <form action="" onSubmit={handleSubmit} className="space-y-5 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <InputField
+                  placeholder="First Name"
+                  name="firstName"
+                  type="text"
+                  getFieldProps={getFieldProps}
+                  touched={touched.firstName as boolean}
+                  errors={errors.firstName}
+                />
+              </div>
+              <div>
+                <InputField
+                  placeholder="Last Name"
+                  name="lastName"
+                  type="text"
+                  getFieldProps={getFieldProps}
+                  touched={touched.lastName as boolean}
+                  errors={errors.lastName}
+                />
+              </div>
             </div>
-            <div>
-              <InputField
-                label="Last Name"
-                name="lastName"
-                type="text"
-                getFieldProps={getFieldProps}
-                touched={touched.lastName as boolean}
-                errors={errors.lastName}
-              />
-            </div>
 
             <div>
               <InputField
-                label="Email "
+                placeholder="Email "
                 name="email"
                 type="email"
                 getFieldProps={getFieldProps}
@@ -242,7 +260,7 @@ export const Register = () => {
             </div>
             <div>
               <InputField
-                label="Phone Number "
+                placeholder="Phone Number "
                 name="phoneNumber"
                 type="number"
                 getFieldProps={getFieldProps}
@@ -253,7 +271,7 @@ export const Register = () => {
 
             <div>
               <PasswordInput
-                label="Password"
+                placeholder="Password"
                 name="password"
                 getFieldProps={getFieldProps}
                 touched={touched}
@@ -272,22 +290,23 @@ export const Register = () => {
           <div className="flex gap-2 my-5 items-center">
             <input type="checkbox" required />
             <p className="text-[13px]">
-              By signing-up, I agree to SeekersDream's{' '}
+              I agree to SeekersDream's{' '}
               <span
-                className="text-[#4285F4] cursor-pointer"
+                className="text-[#000000] underline cursor-pointer"
                 onClick={() => navigate('/term-of-use')}
               >
-                Term of use
+                Terms & Conditions
               </span>
             </p>
           </div>
-          <div className="relative my-2">
-            <div className="w-full h-[1px] bg-gray-400 my-4"></div>
-            <div className="flex justify-center">
-              <img src={or} alt="or" className="absolute top-[-5px]" />
-            </div>
+          <div className="flex items-center justify-center my-4">
+            <hr className="w-full border-t border-[#999999]" />
+            <span className="px-2 text-[10px] w-[230px] mx-auto block text-gray-500">
+              or Register with
+            </span>
+            <hr className="w-full border-t border-[#999999]" />
           </div>
-          <div className="flex justify-center gap-1 md:gap-2 mt-10">
+          <div className="flex justify-center gap-1 md:gap-2 ">
             <div className="flex gap-2 border rounded-md py-1 px-2 items-center cursor-pointer">
               <img src={Google} alt="Google" />
               <span className="text-xs">Sign in with Google</span>
@@ -296,17 +315,6 @@ export const Register = () => {
               <img src={Facebook} alt="Facebook" />
               <span className="text-xs">Sign in with Facebook</span>
             </div>
-          </div>
-          <div className="my-2 text-center text-sm">
-            <p>
-              Already have an account?
-              <span
-                className="text-[#0F3DDE] pl-2 cursor-pointer"
-                onClick={() => navigate('/login')}
-              >
-                Login
-              </span>
-            </p>
           </div>
         </div>
       </div>
