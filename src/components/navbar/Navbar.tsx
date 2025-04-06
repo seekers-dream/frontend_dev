@@ -33,9 +33,10 @@ const navLinks = [
 
 interface NavbarProps {
   background: string;
+  color: string;
 }
 
-const Navbar = ({ background }: NavbarProps) => {
+const Navbar = ({ background, color }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState({
     login: false,
     register: false,
@@ -96,12 +97,12 @@ const Navbar = ({ background }: NavbarProps) => {
             {navLinks.map((link) => (
               <li
                 key={link.label}
-                className="relative text-white font-semibold"
+                className={`relative ${color}  font-semibold`}
               >
                 <NavLink
                   to={link.url}
                   className={({ isActive }) =>
-                    isActive ? 'text-white' : 'hover:underline'
+                    isActive ? `${color} font-bold` : 'hover:underline'
                   }
                 >
                   {link.label}
@@ -127,13 +128,13 @@ const Navbar = ({ background }: NavbarProps) => {
                 onClick={() => handleIsOpen('login')}
                 type="button"
                 label="Log In"
-                className="bg-transparent rounded-2xl text-primary! hover:text-white! border border-primary text-sm"
+                className={` rounded-2xl  border border-primary text-sm ${color}`}
               />
               <Button
                 onClick={() => handleIsOpen('register')}
                 type="button"
                 label="Sign up"
-                className="text-sm rounded-2xl"
+                className={`text-sm  bg-primary text-white rounded-2xl`}
               />
             </div>
           )}
