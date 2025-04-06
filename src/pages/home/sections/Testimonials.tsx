@@ -2,6 +2,8 @@ import HeadingTag from '@/components/headingTag/HeadingTag';
 import { useState } from 'react';
 import ArrowLeft from '@/assets/svg/arrow-left.svg?react';
 import ArrowRight from '@/assets/svg/arrow-right.svg?react';
+import IPattern1 from '@/assets/svg/testimony-pattern1.svg?react';
+import IPattern2 from '@/assets/svg/testimony-pattern2.svg?react';
 const testimonies = [
   {
     id: 1,
@@ -33,15 +35,17 @@ const Testimonials = () => {
   };
 
   return (
-    <div>
-      <div className="w-[90%] mx-auto py-16">
+    <div className="bg-[#F5F5F5] relative ">
+      <IPattern1 className="absolute z-0 top-0 right-0" />
+      <IPattern2 className="absolute z-0 bottom-0 left-0" />
+      <div className="w-[90%] mx-auto py-16 relative">
         <div>
           <div className="w-full ">
             <HeadingTag title="Testimonial" />
             <h1 className="text-4xl md:text-6xl md:leading-[72px] font-semibold">
               What People Are Saying
             </h1>
-            <p className="text-[#8C8C8C] mt-3 text-sm">
+            <p className="text-[#8C8C8C] mt-3 text-sm md:text-lg">
               Real feedback from clients who’ve experienced the SeekersDream
               difference.
             </p>
@@ -62,7 +66,7 @@ const Testimonials = () => {
           </div>
 
           <div className="flex justify-center items-center gap-5 mt-10">
-            <button onClick={handlePrev} className=" ">
+            <button onClick={handlePrev} className=" outline-0 border-0">
               <ArrowLeft />
             </button>
 
@@ -78,7 +82,7 @@ const Testimonials = () => {
               ))}
             </div>
 
-            <button onClick={handleNext} className=" ">
+            <button onClick={handleNext} className="outline-0 border-0 ">
               <ArrowRight />
             </button>
           </div>
