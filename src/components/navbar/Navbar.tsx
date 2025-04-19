@@ -128,7 +128,7 @@ const Navbar = ({ background, color }: NavbarProps) => {
                 onClick={() => handleIsOpen('login')}
                 type="button"
                 label="Log In"
-                className={` rounded-2xl  border border-primary text-sm ${color}`}
+                className={` rounded-2xl  border border-primary hover:text-white text-sm ${color}`}
               />
               <Button
                 onClick={() => handleIsOpen('register')}
@@ -232,7 +232,7 @@ const Navbar = ({ background, color }: NavbarProps) => {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex mt-4 items-center gap-5">
+                    <div className="md:flex mt-4 items-center gap-5">
                       <Button
                         type="button"
                         label="Log In"

@@ -282,7 +282,7 @@ export const Register = ({ onClose, openLogin }: RegisterProps) => {
             <Button
               type="submit"
               label="Register"
-              className="w-full "
+              className="w-full bg-primary text-white "
               loading={isLoading}
               disabled={isLoading}
             />

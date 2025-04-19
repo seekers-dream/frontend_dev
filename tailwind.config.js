@@ -13,6 +13,7 @@ export default {
       backgroundImage: {
         'hero-pattern': "url('./src/assets/images/hero-bg.jpg')",
         'footer-texture': "url('./src/assets/images/footer-texture.png')",
+        'contact-bg': "url('./src/assets/images/contact-bg.jpg')",
         ready: "url('./src/assets/images/readyImg.jpg')",
       },
     },
