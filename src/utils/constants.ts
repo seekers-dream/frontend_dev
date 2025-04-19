@@ -2,6 +2,7 @@ import ITwitter from '@/assets/svg/twitter.svg?react';
 import IFacebook from '@/assets/svg/facebook.svg?react';
 import IInstagram from '@/assets/svg/instagram.svg?react';
 import ILinkedin from '@/assets/svg/linkedin.svg?react';
+import propertyImg from '@/assets/images/propertyImg.jpg';
 
 export const footer = [
   {
@@ -102,5 +103,29 @@ export const socialLinks = [
     name: 'Linkedin',
     url: '#',
     icon: ILinkedin,
+  },
+];
+
+export const properties = [
+  {
+    id: 1,
+    image: propertyImg,
+    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
+    name: 'Family House',
+    amount: 750000,
+  },
+  {
+    id: 2,
+    image: propertyImg,
+    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
+    name: 'Family House',
+    amount: 750000,
+  },
+  {
+    id: 3,
+    image: propertyImg,
+    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
+    name: 'Family House',
+    amount: 750000,
   },
 ];

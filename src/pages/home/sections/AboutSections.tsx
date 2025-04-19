@@ -28,7 +28,7 @@ const AboutSection = ({
   return (
     <div className="py-10">
       <div className="w-[90%] mx-auto ">
-        <div className="md:flex items-center justify-between">
+        <div className="md:flex items-center gap-10 justify-between">
           <div className="w-full md:w-1/2">
             <HeadingTag title={title} />
             <h1 className="text-4xl md:text-6xl md:leading-[72px] font-semibold">

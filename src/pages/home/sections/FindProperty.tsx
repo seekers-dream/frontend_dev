@@ -6,7 +6,9 @@ const FindProperty = () => {
     <div className="py-10">
       <div className="w-[90%] mx-auto">
         <div className="text-center mb-10 max-w-[768px] mx-auto">
-          <h1 className="text-black text-4xl ">Find Your Dream Property</h1>
+          <h1 className="text-black font-medium text-4xl ">
+            Find Your Dream Property
+          </h1>
           <p className="text-[#8C8C8C] text-xl mt-2 max-w-[468px] mx-auto">
             We offer modern properties with the best quality that meet all your
             needs.

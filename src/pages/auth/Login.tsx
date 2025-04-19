@@ -41,6 +41,7 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
     useForgotPasswordMutation();
   const [loginUser, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
+
   const initLogin = (values: LoginPayload) => {
     console.log(values);
 
@@ -184,7 +185,7 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
             <Button
               type="submit"
               label="Login"
-              className="w-full "
+              className="w-full bg-primary text-white"
               loading={isLoading}
               disabled={isLoading}
             />
@@ -236,7 +237,7 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
                 />
                 <Button
                   label="Send"
-                  className="w-full mt-5 "
+                  className="w-full mt-5 bg-primary text-white"
                   type="submit"
                   loading={isForgetPassword}
                 />

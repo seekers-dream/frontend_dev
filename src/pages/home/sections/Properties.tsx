@@ -1,34 +1,10 @@
 import HeadingTag from '@/components/headingTag/HeadingTag';
-import propertyImg from '@/assets/images/propertyImg.jpg';
 import PropertyCard from '@/components/cards/PropertyCard';
 import Button from '@/ui/Button';
 import { useNavigate } from 'react-router-dom';
+import { properties } from '@/utils/constants';
 // import TabSwitch from '@/components/tabSwitch/TabSwitch';
 // import { useState } from 'react';
-
-const properties = [
-  {
-    id: 1,
-    image: propertyImg,
-    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
-    name: 'Family House',
-    amount: 750000,
-  },
-  {
-    id: 2,
-    image: propertyImg,
-    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
-    name: 'Family House',
-    amount: 750000,
-  },
-  {
-    id: 3,
-    image: propertyImg,
-    address: '1012 Oak AvenueManchester, M1 1AE, United Kingdom',
-    name: 'Family House',
-    amount: 750000,
-  },
-];
 
 const Properties = () => {
   const navigate = useNavigate();

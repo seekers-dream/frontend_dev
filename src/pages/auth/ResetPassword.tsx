@@ -90,7 +90,7 @@ export const ResetPassword = () => {
             <Button
               type="submit"
               label="Submit"
-              className="w-full "
+              className="w-full bg-primary text-white"
               loading={isLoading}
               disabled={isLoading}
             />
