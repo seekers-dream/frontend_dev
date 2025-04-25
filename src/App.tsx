@@ -2,24 +2,33 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import {
   About,
   Contact,
+  Help,
   Home,
+  Listings,
   Logistics,
+  Messages,
   Overview,
+  Performance,
   Properties,
   PropertyDetails,
   ResetPassword,
+  Subscriptions,
 } from './pages';
 import ProtectedRoute from './layout/ProtectedRoute';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
+import { DashboardLayout } from './layout';
 
 function App() {
   const location = useLocation();
 
   const isAuthPages =
-    location.pathname === '/reset' || location.pathname === '/';
+    location.pathname === '/reset' ||
+    location.pathname === '/' ||
+    location.pathname.includes('/dashboard');
 
-  const isFooter = location.pathname === '/reset';
+  const isFooter =
+    location.pathname === '/reset' || location.pathname.includes('/dashboard');
 
   return (
     <div>
@@ -35,15 +44,21 @@ function App() {
         <Route path="/logistics" element={<Logistics />} />
         <Route path="/contact" element={<Contact />} />
         <Route
-          path="/dashboard/*"
+          path="/dashboard"
           element={
             <ProtectedRoute>
-              <Routes>
-                <Route path="overview" element={<Overview />} />
-              </Routes>
+              <DashboardLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route path="overview" element={<Overview />} />
+          <Route path="listings" element={<Listings />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="performance" element={<Performance />} />
+          <Route path="profile" element={<Overview />} />
+          <Route path="subscriptions" element={<Subscriptions />} />
+          <Route path="help" element={<Help />} />
+        </Route>
       </Routes>
       {!isFooter && <Footer />}
     </div>

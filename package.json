@@ -11,6 +11,9 @@
     "format": "prettier --write . && eslint './**/*.{js,ts,tsx}' --fix"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^2.5.1",
     "axios": "^1.7.9",
