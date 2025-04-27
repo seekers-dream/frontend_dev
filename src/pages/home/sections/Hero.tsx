@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <div className="bg-hero-pattern md:min-h-screen bg-no-repeat bg-center bg-cover relative">
       <Navbar background="bg-transparent" color="text-white" />
-      <div className="md:px-[60px] md:py-[66px] flex flex-col md:justify-between md:h-screen ">
+      <div className="px-5 md:px-[60px] pb-10  md:py-[66px] flex flex-col md:justify-between md:h-screen ">
         <div className="text-center  text-white  font-semibold text-3xl md:text-6xl md:leading-[64px]">
           <h2>
             Ready to Find Your <br /> Dream Home with SeekersDream?

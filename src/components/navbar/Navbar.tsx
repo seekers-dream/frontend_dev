@@ -7,6 +7,14 @@ import { LiaTimesSolid } from 'react-icons/lia';
 import { RxAvatar } from 'react-icons/rx';
 import Modal from '@/ui/Modal';
 import { Login, Register } from '@/pages';
+import { useAuth } from '@/hooks/useAuth';
+import ITruck from '@/assets/svg/truck.svg?react';
+import { AiOutlineLogout } from 'react-icons/ai';
+import { logout } from '@/features/auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { FiPlus } from 'react-icons/fi';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { LuLayoutDashboard } from 'react-icons/lu';
 
 const navLinks = [
   {
@@ -37,13 +45,15 @@ interface NavbarProps {
 }
 
 const Navbar = ({ background, color }: NavbarProps) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState({
     login: false,
     register: false,
     forgotPassword: false,
+    logout: false,
   });
 
-  type OpenKeys = 'login' | 'register' | 'forgotPassword';
+  type OpenKeys = 'login' | 'register' | 'forgotPassword' | 'logout';
 
   const handleIsOpen = (type: OpenKeys) => {
     setIsOpen((prev) => ({ ...prev, [type]: !prev[type] }));
@@ -51,19 +61,19 @@ const Navbar = ({ background, color }: NavbarProps) => {
   const handleClose = (type: string) => {
     setIsOpen((prev) => ({ ...prev, [type]: false }));
   };
-  const isLoggedin = false;
+  const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [isUserMenu, setIsUserMenu] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
-  const handleUserMenu = () => {
-    setIsUserMenu(!isUserMenu);
-  };
-
   const handleMobileMenu = () => {
     setIsMobile(!isMobile);
+  };
+
+  const handleUserMenu = () => {
+    setIsUserMenu(!isUserMenu);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -87,6 +97,10 @@ const Navbar = ({ background, color }: NavbarProps) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <nav className={`sticky top-0 z-50 ${background} `}>
@@ -113,14 +127,26 @@ const Navbar = ({ background, color }: NavbarProps) => {
         </div>
 
         <div className="hidden lg:block relative" ref={userMenuRef}>
-          {isLoggedin ? (
-            <div className="h-[44px] w-[121px] rounded-lg border-2 border-primary flex justify-center items-center gap-6">
-              <CiMenuBurger
-                size={25}
-                className="text-primary"
+          {isAuthenticated ? (
+            <div className="flex justify-center items-center gap-20">
+              <div className="flex items-center gap-4">
+                <div
+                  onClick={() => navigate('/dashboard/listings')}
+                  className="flex gap-3 h-[40px] w-[190px] justify-center items-center text-white text-base rounded-full bg-[#090C1B] cursor-pointer"
+                >
+                  <FiPlus />
+                  <p>Add Listing</p>
+                </div>
+                <ITruck />
+              </div>
+              <div
                 onClick={handleUserMenu}
-              />
-              <RxAvatar className="size-9" />
+                className="flex items-center gap-1 cursor-pointer"
+              >
+                <RxAvatar className="size-16" />
+
+                <IoMdArrowDropdown size={24} className="text-white " />
+              </div>
             </div>
           ) : (
             <div className="lg:flex items-center gap-5">
@@ -141,47 +167,29 @@ const Navbar = ({ background, color }: NavbarProps) => {
 
           <div>
             {isUserMenu && (
-              <ul className="absolute p-2  right-0 mt-2 w-72 bg-white shadow-lg border border-[#EAECF0] rounded">
-                <li className="px-2 py-2  text-sm hover:bg-gray-100 cursor-pointer">
-                  <Link
-                    to="/profile/courses"
-                    onClick={() => setIsUserMenu(false)}
-                  >
-                    My courses/ workshop{' '}
-                  </Link>
-                </li>
-                <li className="px-2 py-2  text-sm border-[#D3D8DE] border-y cursor-pointer hover:bg-gray-100">
-                  <Link
-                    to="/profile/notifications"
-                    onClick={() => setIsUserMenu(false)}
-                  >
-                    Notifications{' '}
-                  </Link>
-                </li>
-                <li className="px-2 py-2  text-sm border-[#D3D8DE] cursor-pointer  hover:bg-gray-100">
-                  <Link
-                    to="/profile/interactions"
-                    onClick={() => setIsUserMenu(false)}
-                  >
-                    My interactions{' '}
-                  </Link>
-                </li>
-                <li className="px-2 py-2 text-sm hover:bg-gray-100 cursor-pointer border-[#D3D8DE]  border-y">
-                  <Link
-                    to="/profile/articles"
-                    onClick={() => setIsUserMenu(false)}
-                  >
-                    My articles/videos{' '}
-                  </Link>
-                </li>
-                <li className="px-2 py-2 text-sm hover:bg-gray-100 cursor-pointer border-[#D3D8DE]  border-b">
-                  <Link to="/profile/info" onClick={() => setIsUserMenu(false)}>
-                    Account{' '}
-                  </Link>
-                </li>
-                <li className="px-2 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-                  <p onClick={() => setIsUserMenu(false)}>Log out</p>
-                </li>
+              <ul className="absolute py-2  right-0 mt-2  bg-white shadow-lg border border-[#EAECF0] rounded">
+                <Link
+                  to="/dashboard/overview"
+                  className="hover:bg-gray-50 p-2 flex items-center gap-4 font-semibold text-[#475467]"
+                >
+                  <LuLayoutDashboard className="size-5" />
+                  <p>Dashboard</p>
+                </Link>
+                <Link
+                  to="/dashboard/profile"
+                  className=" hover:bg-gray-50 p-2 flex items-center gap-4 font-semibold text-[#475467]"
+                >
+                  <RxAvatar className="size-5" />
+                  <p>Profile</p>
+                </Link>
+
+                <div
+                  onClick={() => handleIsOpen('logout')}
+                  className="flex items-center hover:bg-gray-50 py-2 gap-4 p-2 text-red-500 cursor-pointer"
+                >
+                  <AiOutlineLogout className="size-5" />
+                  <p className="text-sm font-semibold">Log out</p>
+                </div>
               </ul>
             )}
           </div>
@@ -206,7 +214,7 @@ const Navbar = ({ background, color }: NavbarProps) => {
 
           <div>
             {isMobile && (
-              <div className="absolute top-10 right-0 w-58 bg-white shadow-lg border border-[#EAECF0] rounded p-4">
+              <div className="absolute top-10 right-0 w-48 bg-white shadow-lg border border-[#EAECF0] rounded p-4">
                 <ul className="flex flex-col gap-4">
                   {navLinks.map((link) => (
                     <li key={link.label}>
@@ -220,33 +228,42 @@ const Navbar = ({ background, color }: NavbarProps) => {
                   ))}
                 </ul>
 
-                <div>
-                  {isLoggedin ? (
-                    <div className="mt-5 flex gap-3 items-center">
+                <div className="border-y border-[#EAECF0] my-3 py-3  ">
+                  {isAuthenticated ? (
+                    <div className="flex gap-3 items-center">
                       <RxAvatar className="size-9" />
                       <div className="text-xs">
-                        <h1 className="font-semibold">Presh Doe</h1>
+                        <h1 className="font-semibold">
+                          {user.firstName} {user.lastName}
+                        </h1>
                         <h1 className="font-medium text-primary">
-                          Pre@gmail.com
+                          {user?.email}
                         </h1>
                       </div>
                     </div>
                   ) : (
-                    <div className="md:flex mt-4 items-center gap-5">
+                    <div className="flex flex-col md:flex-row mt-2 items-center gap-3">
                       <Button
                         type="button"
                         label="Log In"
-                        onClick={() => navigate('/login')}
-                        className="bg-transparent text-primary! hover:text-white! border border-primary text-sm"
+                        onClick={() => handleIsOpen('login')}
+                        className="bg-transparent text-primary hover:text-white w-full hover:text-white! border border-primary text-sm"
                       />
                       <Button
-                        onClick={() => navigate('/register')}
+                        onClick={() => handleIsOpen('register')}
                         type="button"
                         label="Sign up"
-                        className="text-sm"
+                        className="text-sm bg-primary text-white w-full"
                       />
                     </div>
                   )}
+                </div>
+                <div
+                  onClick={() => handleIsOpen('logout')}
+                  className="flex items-center gap-4 mt-3 text-red-500 cursor-pointer"
+                >
+                  <AiOutlineLogout />
+                  <p className="text-sm font-semibold">Log out</p>
                 </div>
               </div>
             )}
@@ -275,6 +292,31 @@ const Navbar = ({ background, color }: NavbarProps) => {
           onClose={() => handleClose('register')}
           openLogin={() => handleIsOpen('login')}
         />
+      </Modal>
+      <Modal
+        isOpen={isOpen.logout}
+        onClose={() => handleClose('logout')}
+        background="bg-[#F7F7F7]"
+      >
+        <div className="max-w-[400px] mx-auto px-5 py-10">
+          <h1 className="text-gray-500 font-medium text-lg">
+            Are you sure you want to logout?
+          </h1>
+          <div className="flex justify-center gap-4 mt-8">
+            <Button
+              type="button"
+              label="Cancel"
+              onClick={() => handleClose('logout')}
+              className="bg-transparent text-primary! hover:text-white border border-primary text-sm"
+            />
+            <Button
+              type="button"
+              label="Logout"
+              onClick={handleLogout}
+              className="bg-red-500 text-white text-sm"
+            />
+          </div>
+        </div>
       </Modal>
     </nav>
   );

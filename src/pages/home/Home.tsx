@@ -28,6 +28,7 @@ export const Home = () => {
         about3={about3}
         about4={about4}
         link="/about"
+        linkText="About Us"
       />
       <AboutSection
         title="About SeekersDream"
@@ -38,6 +39,7 @@ export const Home = () => {
         about3={about7}
         about4={about8}
         link="/logistics"
+        linkText="View Logistics"
       />
       <Stats />
       <Properties />

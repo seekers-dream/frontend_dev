@@ -11,6 +11,7 @@ interface AboutSectionProps {
   about3: string;
   about4: string;
   link: string;
+  linkText: string;
 }
 
 const AboutSection = ({
@@ -22,6 +23,7 @@ const AboutSection = ({
   about3,
   about4,
   link,
+  linkText,
 }: AboutSectionProps) => {
   const navigate = useNavigate();
 
@@ -75,13 +77,13 @@ const AboutSection = ({
             <div className="border border-primary rounded-full size-[72px] flex justify-center items-center">
               <ArrowUp />
             </div>
-            More
+            <p className="">{linkText}</p>
           </div>
           <div
             onClick={() => navigate(link)}
             className="border border-primary h-[48px] md:hidden text-center flex justify-center items-center gap-5  rounded-full cursor-pointer"
           >
-            More
+            <p className="">{linkText}</p>
             <ArrowUp />
           </div>
         </div>

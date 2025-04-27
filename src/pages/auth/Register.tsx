@@ -205,7 +205,7 @@ export const Register = ({ onClose, openLogin }: RegisterProps) => {
 
   return (
     <AuthLayout>
-      <div className="max-w-[458px] mx-auto py-10  md:py-0 px-3 flex justify-center ">
+      <div className="md:max-w-[458px] mx-auto py-10  md:py-0 px-3 flex justify-center ">
         <div>
           <h3 className="my-3 text-black font-medium text-center text-2xl md:text-[32px]">
             Create an account
