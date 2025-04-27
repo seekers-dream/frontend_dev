@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const storedData = localStorage.getItem('@seeker_user');
   const isAuthenticated = storedData && JSON.parse(storedData).isAuthenticated;
 
-  if (isAuthenticated) {
+  if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
 

@@ -18,13 +18,16 @@ import ProtectedRoute from './layout/ProtectedRoute';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import { DashboardLayout } from './layout';
+import { useScrollToTop } from './hooks/useScroll';
 
 function App() {
   const location = useLocation();
+  useScrollToTop();
 
   const isAuthPages =
     location.pathname === '/reset' ||
     location.pathname === '/' ||
+    location.pathname === '/logistics' ||
     location.pathname.includes('/dashboard');
 
   const isFooter =

@@ -1,6 +1,6 @@
 import Facebook from 'assets/images/Facebook.png';
 import Google from 'assets/images/google.png';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import Spinner from 'assets/images/spinner.svg';
 import { useFormik } from 'formik';
 import AuthLayout from '@/layout/AuthLayout';
@@ -28,7 +28,7 @@ interface LoginProps {
 }
 
 export const Login = ({ onClose, openRegister }: LoginProps) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => setIsOpen(false);
@@ -62,7 +62,10 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
             type: 'success',
             message: 'Login successfully',
             timer: 2000,
-            cb: () => navigate(`/`),
+            cb: () => {
+              onClose();
+              // navigate('/dashboard/overview');
+            },
           });
         }
       })
@@ -125,7 +128,7 @@ export const Login = ({ onClose, openRegister }: LoginProps) => {
 
   return (
     <AuthLayout>
-      <div className="max-w-[458px] py-10  md:py-0 px-3 mx-auto flex justify-center  ">
+      <div className="md:max-w-[458px] py-10  md:py-0 px-3 mx-auto flex justify-center  ">
         <div>
           <h3 className=" text-center text-black font-medium  text-2xl md:text-[32px]">
             Log In

@@ -27,10 +27,10 @@ export const ResetPassword = () => {
         if (res) {
           alert({
             type: 'success',
-            message: 'Password Reset Link Sent. Check your email',
+            message: 'Password Reset Successfully',
             timer: 2000,
             cb: () => {
-              navigate('/login');
+              navigate('/');
             },
           });
         }
@@ -57,7 +57,7 @@ export const ResetPassword = () => {
   });
 
   return (
-    <div className="max-w-[458px] h-screen px-3 mx-auto flex flex-col items-center justify-center  ">
+    <div className="md:max-w-[458px] h-screen px-3 mx-auto flex flex-col items-center justify-center  ">
       <div>
         <div className="mb-5 flex items-center justify-center">
           <ILogo />

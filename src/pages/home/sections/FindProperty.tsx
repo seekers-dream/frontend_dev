@@ -71,7 +71,7 @@ const FindProperty = () => {
               type="submit"
               label="Search"
               icon={<Search />}
-              className="w-full rounded-[999px] gap-5 items-center"
+              className="w-full bg-primary text-white rounded-[999px] gap-5 items-center"
               // loading={isLoading}
               // disabled={isLoading}
             />
