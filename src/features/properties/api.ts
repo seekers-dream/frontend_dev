@@ -7,7 +7,7 @@ export const propertiesApi = createApi({
   reducerPath: 'propertiesApi',
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
-    getAllProperties: builder.mutation<IResponse, void>({
+    getAllProperties: builder.query<IResponse, void>({
       query: () => ({
         url: `/house-listing`,
         method: 'GET',
@@ -48,7 +48,7 @@ export const propertiesApi = createApi({
 });
 
 export const {
-  useGetAllPropertiesMutation,
+  useGetAllPropertiesQuery,
   useUpdatePropertyMutation,
   useUploadPropertyImageMutation,
   useCreatePropertyMutation,

@@ -5,7 +5,7 @@ const Ready = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent "></div>
       <div className="w-[90%] mx-auto  relative">
         <div className="text-center">
-          <h1 className="max-w-[1280px] mx-auto text-white text-4xl md:text-6xl font-semibold">
+          <h1 className="md:max-w-[1280px] mx-auto text-white text-4xl md:text-6xl font-semibold">
             Ready to Find <br /> Your Dream Home with SeekersDream?
           </h1>
           <p className="md:max-w-[696px] mx-auto mt-5 mb-10 text-[#D9D9D9] font-medium text-base md:text-xl">

@@ -3,11 +3,15 @@ import FindProperty from '../home/sections/FindProperty';
 import TabSwitch from '@/components/tabSwitch/TabSwitch';
 import { useState } from 'react';
 import PropertyCard from '@/components/cards/PropertyCard';
-import { properties } from '@/utils/constants';
+import { useGetAllPropertiesQuery } from '@/features/properties/api';
+import { Property } from '@/features/properties/interfaces';
 
 export const Properties = () => {
   const [activeTab, setActiveTab] = useState('all');
-
+  const { data: getAllProperties } = useGetAllPropertiesQuery();
+  console.log(getAllProperties);
+  const properties = getAllProperties?.data?.houseListing || [];
+  console.log(properties);
   const tabs = [
     { name: 'all', label: 'All Properties' },
     { name: 'logistics', label: 'Logistics' },
@@ -23,7 +27,7 @@ export const Properties = () => {
     <div>
       <div className="w-[90%] mx-auto">
         <FindProperty />
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-[814px]">
           <HeadingTag title="Featured Properties" />
           <h1 className="text-4xl md:text-6xl md:leading-[72px] my-3 font-semibold">
             Explore Our Handpicked Properties
@@ -43,7 +47,7 @@ export const Properties = () => {
         </div>
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-3 my-10">
-          {properties.map((property, idx) => (
+          {properties.map((property: Property, idx: number) => (
             <div key={idx}>
               <PropertyCard property={property} />
             </div>
