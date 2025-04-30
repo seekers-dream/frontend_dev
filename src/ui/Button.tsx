@@ -25,7 +25,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`flex shadow-xs transition-all duration-500 ease-in-out justify-center px-4 py-2 rounded-lg   font-semibold hover:bg-black  disabled:bg-blue-950 ${
+      className={`flex shadow-xs transition-all duration-500 ease-in-out justify-center px-4 py-2 rounded-lg  items-center gap-2 border border-[#F0F0F0] font-semibold hover:bg-black  disabled:bg-blue-950 ${
         !disabled ? 'cursor-pointer ' : ''
       } ${className}`}
     >
