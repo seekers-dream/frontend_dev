@@ -8,10 +8,10 @@ import { Property } from '@/features/properties/interfaces';
 
 export const Properties = () => {
   const [activeTab, setActiveTab] = useState('all');
-  const { data: getAllProperties } = useGetAllPropertiesQuery();
+  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery();
   console.log(getAllProperties);
   const properties = getAllProperties?.data?.houseListing || [];
-  console.log(properties);
+  // console.log(properties);
   const tabs = [
     { name: 'all', label: 'All Properties' },
     { name: 'logistics', label: 'Logistics' },
@@ -47,11 +47,21 @@ export const Properties = () => {
         </div>
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-3 my-10">
-          {properties.map((property: Property, idx: number) => (
-            <div key={idx}>
-              <PropertyCard property={property} />
+          {isLoading ? (
+            <div className="col-span-3 flex justify-center items-center">
+              <p className="text-xl">Loading...</p>
             </div>
-          ))}
+          ) : properties.length === 0 ? (
+            <div className="col-span-3 flex justify-center items-center">
+              <p className="text-xl">No properties found</p>
+            </div>
+          ) : (
+            properties.map((property: Property, idx: number) => (
+              <div key={idx}>
+                <PropertyCard property={property} />
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

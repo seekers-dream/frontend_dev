@@ -14,6 +14,13 @@ export const propertiesApi = createApi({
       }),
     }),
 
+    getSingleProperty: builder.query<IResponse, string>({
+      query: (id) => ({
+        url: `/listing/${id}`,
+        method: 'GET',
+      }),
+    }),
+
     updateProperty: builder.mutation<IResponse, CreatePropertyPayload>({
       query: (payload) => ({
         url: `/update-listing/${payload.id}`,
@@ -53,4 +60,5 @@ export const {
   useUploadPropertyImageMutation,
   useCreatePropertyMutation,
   useDeletePropertyMutation,
+  useGetSinglePropertyQuery,
 } = propertiesApi;

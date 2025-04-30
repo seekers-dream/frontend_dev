@@ -9,7 +9,7 @@ import { Property } from '@/features/properties/interfaces';
 
 const Properties = () => {
   const navigate = useNavigate();
-  const { data: getAllProperties } = useGetAllPropertiesQuery();
+  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery();
   console.log(getAllProperties);
   const properties = getAllProperties?.data?.houseListing || [];
   console.log(properties);
@@ -54,11 +54,21 @@ const Properties = () => {
         </div> */}
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-3 mt-5">
-          {properties.slice(0, 3).map((property: Property, idx: number) => (
-            <div key={idx}>
-              <PropertyCard property={property} />
+          {isLoading ? (
+            <div className="col-span-3 flex justify-center items-center">
+              <p className="text-xl">Loading...</p>
             </div>
-          ))}
+          ) : properties.length === 0 ? (
+            <div className="col-span-3 flex justify-center items-center">
+              <p className="text-xl">No properties found</p>
+            </div>
+          ) : (
+            properties.slice(0, 3).map((property: Property, idx: number) => (
+              <div key={idx}>
+                <PropertyCard property={property} />
+              </div>
+            ))
+          )}
         </div>
 
         <div className="flex justify-center mt-10">

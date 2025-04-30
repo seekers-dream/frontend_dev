@@ -3,15 +3,23 @@ import { RxAvatar } from 'react-icons/rx';
 import { useParams } from 'react-router-dom';
 import { FiMail } from 'react-icons/fi';
 import { MdOutlinePhone } from 'react-icons/md';
+import { useGetSinglePropertyQuery } from '@/features/properties/api';
 
 export const PropertyDetails = () => {
   const { propertyId } = useParams<{ propertyId: string }>();
   console.log(propertyId);
+  const { data: getPropertyDetails, isLoading } = useGetSinglePropertyQuery(
+    propertyId as string,
+  );
+  console.log(getPropertyDetails);
+
+  if (isLoading)
+    return <div className="flex justify-center items-center">Loading...</div>;
   return (
     <div>
       <div className="w-[90%] mx-auto">
         <div>Images</div>
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-12 gap-5 pb-10">
+        <div className="mt-10 md:grid md:grid-cols-12 gap-5 pb-10">
           <div className="col-span-8">
             <div>
               <h1 className="text-black font-semibold text-3xl md:text-6xl">
@@ -33,7 +41,7 @@ export const PropertyDetails = () => {
 
             <div className="my-5">Address</div>
           </div>
-          <div className="col-span-6 md:col-span-4 space-y-10">
+          <div className=" col-span-4 space-y-10">
             <div className="font-bold text-black border border-[#F0F0F0] rounded-2xl p-5">
               <p className="text-base md:text-2xl">Price</p>
               <h1 className="text-2xl md:text-4xl"> NGN 400,000</h1>
@@ -43,16 +51,16 @@ export const PropertyDetails = () => {
               <p className="font-semibold text-base md:text-2xl">
                 Thinking of renting?
               </p>
-              <div className="flex gap-5 justify-center items-center my-10">
+              <div className="flex flex-col md:flex-row gap-5 justify-center items-center my-10">
                 <Button
                   type="button"
                   label="Tour in person"
-                  className="bg-black  w-1/2 text-white"
+                  className="bg-black  w-full md:w-1/2 text-white"
                 />
                 <Button
                   type="button"
                   label="Tour via video call"
-                  className="text-black w-1/2"
+                  className="text-black w-full md:w-1/2"
                 />
               </div>
               <div>
@@ -78,11 +86,13 @@ export const PropertyDetails = () => {
               </p>
               <div className="flex items-center gap-5 my-10">
                 <div>
-                  <RxAvatar className="size-[80px]" />
+                  <RxAvatar className="size-10 md:size-20" />
                 </div>
                 <div>
-                  <h1 className="font-semibold text-black text-xl">John Doe</h1>
-                  <p className="text-[#8C8C8C] font-normal text-base">
+                  <h1 className="font-semibold text-black text-lg md:text-xl">
+                    John Doe
+                  </h1>
+                  <p className="text-[#8C8C8C] font-normal text-sm md:text-base">
                     Joh@gmail.com
                   </p>
                 </div>
