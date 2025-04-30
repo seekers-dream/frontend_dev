@@ -17,3 +17,35 @@ export interface UploadImagePayload {
   id: string;
   media: FormData;
 }
+
+export interface PropretyMedia {
+  id: string;
+  url: string;
+}
+
+export interface Property {
+  id: string;
+  title: string;
+  description: string;
+  address: string;
+  price: string;
+  status: string;
+  city: string;
+  state: string;
+  isVerified: boolean;
+  views: number;
+  listingType: string;
+  flatType: string;
+  createdAt: string;
+  updatedAt: string;
+  media: PropretyMedia[];
+  listedBy: {
+    id: string;
+    email: string;
+  };
+  listingDocuments: [];
+}
+
+export interface PropertyResponse {
+  houseListing: Property[];
+}

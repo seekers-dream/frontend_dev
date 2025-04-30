@@ -21,6 +21,16 @@ export const registerValidationSchema = () => {
   });
 };
 
+export const contactValidationSchema = () => {
+  return object({
+    firstName: string().required('First Name is required'),
+    lastName: string().required('Last Name is required'),
+    email: string().email().required('Email is required'),
+    phoneNumber: string().required('Phone Number is required'),
+    message: string().required('Message is required'),
+  });
+};
+
 export const forgotPasswordValidationSchema = () => {
   return object({
     email: string().email().required('Email is required'),

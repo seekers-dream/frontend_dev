@@ -2,37 +2,41 @@ import HeadingTag from '@/components/headingTag/HeadingTag';
 import Button from '@/ui/Button';
 import InputField from '@/ui/InputField';
 import InputTextArea from '@/ui/InputTextArea';
-// import { alert } from '@/utils/alert';
+import { alert } from '@/utils/alert';
 import { socialLinks } from '@/utils/constants';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import Ready from '../home/sections/Ready';
+import { useSendContactMessageMutation } from '@/features/contact/api';
+import { contactValidationSchema } from '@/utils/validations';
+import { SendContactPayload } from '@/features/contact/interfaces';
 
 export const Contact = () => {
-  //  const [contact, { isLoading }] = useLoginMutation();
+  const [contact, { isLoading }] = useSendContactMessageMutation();
 
-  // const handleContactSubmit = (values: any) => {
-  //   contact(values)
-  //     .unwrap()
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res) {
-  //         alert({
-  //           type: 'success',
-  //           message: 'Password Reset Link Sent. Check your email',
-  //           timer: 2000,
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //       alert({
-  //         type: 'error',
-  //         message: err?.data?.data || err?.data?.message || 'An error occurred',
-  //         timer: 3000,
-  //       });
-  //     });
-  // };
+  const handleContactSubmit = (values: SendContactPayload) => {
+    contact(values)
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        if (res) {
+          alert({
+            type: 'success',
+            message: 'Message Sent Successfully',
+            timer: 2000,
+          });
+        }
+        contactFormik.resetForm();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert({
+          type: 'error',
+          message: err?.data?.data || err?.data?.message || 'An error occurred',
+          timer: 3000,
+        });
+      });
+  };
 
   const contactFormik = useFormik({
     initialValues: {
@@ -42,10 +46,10 @@ export const Contact = () => {
       phoneNumber: '',
       message: '',
     },
-    //  validationSchema: loginValidationSchema,
+    validationSchema: contactValidationSchema,
     onSubmit: (values) => {
       console.log(values);
-      // handleContactSubmit(values);
+      handleContactSubmit(values);
     },
   });
 
@@ -161,7 +165,7 @@ export const Contact = () => {
                 type="submit"
                 label="Send Message"
                 className="w-full bg-black text-white py-4 "
-                // loading={isLoading}
+                loading={isLoading}
                 // disabled={isLoading}
               />
             </div>

@@ -2,12 +2,17 @@ import HeadingTag from '@/components/headingTag/HeadingTag';
 import PropertyCard from '@/components/cards/PropertyCard';
 import Button from '@/ui/Button';
 import { useNavigate } from 'react-router-dom';
-import { properties } from '@/utils/constants';
+import { useGetAllPropertiesQuery } from '@/features/properties/api';
+import { Property } from '@/features/properties/interfaces';
 // import TabSwitch from '@/components/tabSwitch/TabSwitch';
 // import { useState } from 'react';
 
 const Properties = () => {
   const navigate = useNavigate();
+  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery();
+  console.log(getAllProperties);
+  const properties = getAllProperties?.data?.houseListing || [];
+  console.log(properties);
   //   const [activeTab, setActiveTab] = useState('all');
 
   //   const tabs = [
@@ -49,17 +54,28 @@ const Properties = () => {
         </div> */}
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-3 mt-5">
-          {properties.map((property, idx) => (
-            <div key={idx}>
-              <PropertyCard property={property} />
+          {isLoading ? (
+            <div className="col-span-3 flex justify-center items-center">
+              <p className="text-xl">Loading...</p>
             </div>
-          ))}
+          ) : properties.length === 0 ? (
+            <div className="col-span-3 flex justify-center items-center">
+              <p className="text-xl">No properties found</p>
+            </div>
+          ) : (
+            properties.slice(0, 3).map((property: Property, idx: number) => (
+              <div key={idx}>
+                <PropertyCard property={property} />
+              </div>
+            ))
+          )}
         </div>
 
         <div className="flex justify-center mt-10">
           <Button
             label="Explore More"
             type="button"
+            className="border border-[#000000] hover:text-white "
             onClick={() => navigate('/properties')}
           />
         </div>

@@ -3,6 +3,7 @@ import authReducer from '@/features/auth/authSlice';
 import { authApi } from '@/features/auth/api';
 import { profileApi } from '@/features/profile/api';
 import { propertiesApi } from '@/features/properties/api';
+import { contactApi } from '@/features/contact/api';
 
 export const store = configureStore({
   reducer: {
@@ -10,12 +11,14 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
     [propertiesApi.reducerPath]: propertiesApi.reducer,
+    [contactApi.reducerPath]: contactApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       profileApi.middleware,
       propertiesApi.middleware,
+      contactApi.middleware,
     ),
 });
 
