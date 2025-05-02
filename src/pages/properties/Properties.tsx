@@ -5,12 +5,34 @@ import { useState } from 'react';
 import PropertyCard from '@/components/cards/PropertyCard';
 import { useGetAllPropertiesQuery } from '@/features/properties/api';
 import { Property } from '@/features/properties/interfaces';
+import Pagination from '@/components/pagination/Pagination';
 
 export const Properties = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 12;
   const [activeTab, setActiveTab] = useState('all');
-  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery();
-  console.log(getAllProperties);
+  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery({
+    page: currentPage,
+    limit: pageSize,
+
+    // flatType: 'all',
+    // listingType: 'all',
+  });
   const properties = getAllProperties?.data?.houseListing || [];
+  const totalProperties = getAllProperties?.data.pagination.total || 0;
+  const totalPages = Math.ceil(totalProperties / pageSize);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   // console.log(properties);
   const tabs = [
     { name: 'all', label: 'All Properties' },
@@ -25,7 +47,7 @@ export const Properties = () => {
 
   return (
     <div>
-      <div className="w-[90%] mx-auto">
+      <div className="w-[90%] mx-auto py-10">
         <FindProperty />
         <div className="w-full md:w-[814px]">
           <HeadingTag title="Featured Properties" />
@@ -63,6 +85,14 @@ export const Properties = () => {
             ))
           )}
         </div>
+        {!isLoading && properties.length > 0 && (
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+          />
+        )}
       </div>
     </div>
   );

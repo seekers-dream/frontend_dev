@@ -9,7 +9,12 @@ import { Property } from '@/features/properties/interfaces';
 
 const Properties = () => {
   const navigate = useNavigate();
-  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery();
+  const { data: getAllProperties, isLoading } = useGetAllPropertiesQuery({
+    page: 1,
+    limit: 3,
+    // flatType: 'all',
+    // listingType: 'all',
+  });
   console.log(getAllProperties);
   const properties = getAllProperties?.data?.houseListing || [];
   console.log(properties);
