@@ -49,3 +49,15 @@ export interface Property {
 export interface PropertyResponse {
   houseListing: Property[];
 }
+
+export interface Params {
+  page: number;
+  limit: number;
+  search?: string;
+  city?: string;
+  state?: string;
+  price?: string;
+  status?: string;
+  listingType?: string;
+  flatType?: string;
+}

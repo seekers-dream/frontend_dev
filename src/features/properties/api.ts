@@ -1,18 +1,39 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '@/utils/baseQuery';
 import { IResponse } from '../auth/interfaces';
-import { CreatePropertyPayload, UploadImagePayload } from './interfaces';
+import {
+  CreatePropertyPayload,
+  Params,
+  UploadImagePayload,
+} from './interfaces';
 
 export const propertiesApi = createApi({
   reducerPath: 'propertiesApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['Property'],
   endpoints: (builder) => ({
-    getAllProperties: builder.query<IResponse, void>({
-      query: () => ({
-        url: `/house-listing`,
-        method: 'GET',
-      }),
+    getAllProperties: builder.query<IResponse, Params>({
+      query: ({ page, limit, flatType, listingType }) => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          limit: limit.toString(),
+        });
+        if (listingType) params.append('listingType', listingType);
+        if (flatType) params.append('flatType', flatType);
+
+        return {
+          url: `/house-listing?${params.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: [{ type: 'Property' }],
     }),
+    // getAllProperties: builder.query<IResponse, void>({
+    //   query: () => ({
+    //     url: `/house-listing`,
+    //     method: 'GET',
+    //   }),
+    // }),
 
     getSingleProperty: builder.query<IResponse, string>({
       query: (id) => ({
