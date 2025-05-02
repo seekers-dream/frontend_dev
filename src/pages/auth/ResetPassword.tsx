@@ -98,7 +98,7 @@ export const ResetPassword = () => {
         </form>
 
         <div className="my-2 text-center text-sm">
-          <p onClick={() => navigate('/register')} className="cursor-pointer">
+          <p onClick={() => navigate('/')} className="cursor-pointer">
             Back to Login
           </p>
         </div>

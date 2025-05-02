@@ -28,12 +28,6 @@ export const propertiesApi = createApi({
       },
       providesTags: [{ type: 'Property' }],
     }),
-    // getAllProperties: builder.query<IResponse, void>({
-    //   query: () => ({
-    //     url: `/house-listing`,
-    //     method: 'GET',
-    //   }),
-    // }),
 
     getSingleProperty: builder.query<IResponse, string>({
       query: (id) => ({
