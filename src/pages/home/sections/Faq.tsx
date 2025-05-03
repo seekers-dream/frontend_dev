@@ -24,7 +24,7 @@ const faqs = [
 
   {
     _id: '3',
-    question: 'Can Urbanouse help me sell my property?',
+    question: 'Can SeekersDream help me sell my property?',
     answer:
       'Yes! We offer a free trial for the Momentum Plan to give you a taste of our premium content and features before you commit. You can explore everything from expert articles to interactive Q&A during the trial period.',
   },
@@ -63,7 +63,7 @@ const Faq = () => {
             Frequently Asked Questions
           </h1>
           <p className="text-[#8C8C8C] mt-3 text-sm">
-            Have questions about buying, selling, or renting with Urbanouse?
+            Have questions about buying, selling, or renting with SeekersDream?
             We’ve got the answers to help guide you through the process.
           </p>
         </div>

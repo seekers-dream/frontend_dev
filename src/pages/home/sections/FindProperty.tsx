@@ -15,51 +15,67 @@ const FindProperty = () => {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col md:flex-row max-w-[1170px] mx-auto gap-10 flex-wrap justify-between">
+        <div className="mt-10 flex flex-col md:flex-row mx-auto gap-10 flex-wrap justify-between">
           <div className="md:text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Looking for
             </label>
-            <select className=" w-full px-4 py-2 outline-0 border-b border-[#F0F0F0]">
-              <option value="">--SELECT--</option>
+            <select
+              name="listingType"
+              className=" w-full px-4 py-2  outline-0 border-b border-[#F0F0F0]"
+            >
+              <option value="" className="text-center">
+                Select an option
+              </option>
               <option value="rent">Rent</option>
+              <option value="buy">Buy</option>
             </select>
           </div>
           <div className="md:text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Location
             </label>
-            <select className="w-full px-4 py-2 outline-0 border-b border-[#F0F0F0]">
-              <option value="">--SELECT--</option>
-              <option value="rent">Rent</option>
-            </select>
+
+            <input
+              type="text"
+              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              name="city"
+              placeholder="City"
+            />
+          </div>
+          <div className="md:text-center">
+            <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
+              State
+            </label>
+            <input
+              type="text"
+              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              name="state "
+              placeholder="State"
+            />
           </div>
           <div className="md:text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Property Type
             </label>
-            <select className="w-full px-4 py-2 outline-0 border-0 border-b border-[#F0F0F0]">
-              <option value="">--SELECT--</option>
-              <option value="rent">Rent</option>
-            </select>
+            <input
+              type="text"
+              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              name="flattype "
+              placeholder="2 or 3 bedroom flat"
+            />
           </div>
-          <div className="md:text-center">
-            <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
-              Bedrooms
-            </label>
-            <select className="w-full px-4 py-2 outline-0 border-b border-[#F0F0F0]">
-              <option value="">--SELECT--</option>
-              <option value="rent">Rent</option>
-            </select>
-          </div>
+
           <div className="md:text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Budget
             </label>
-            <select className="w-full px-4 py-2 outline-0 border-b border-[#F0F0F0]">
-              <option value="">--SELECT--</option>
-              <option value="rent">Rent</option>
-            </select>
+            <input
+              type="text"
+              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              name="price "
+              placeholder="0.5-5M"
+            />
           </div>
           <div>
             <div className="hidden rounded-full bg-primary md:flex justify-center items-center w-[56px] h-[56px] cursor-pointer">

@@ -47,8 +47,8 @@ export const Properties = () => {
 
   return (
     <div>
+      <FindProperty />
       <div className="w-[90%] mx-auto py-10">
-        <FindProperty />
         <div className="w-full md:w-[814px]">
           <HeadingTag title="Featured Properties" />
           <h1 className="text-4xl md:text-6xl md:leading-[72px] my-3 font-semibold">
