@@ -1,7 +1,6 @@
 const statsData = [
   { title: 'Home for Rent', value: '5300+' },
   { title: 'Home to Buy', value: '300+' },
-  { title: 'Agents', value: '54+' },
   { title: 'Cities Covered', value: '120+' },
   { title: 'Total Properties', value: '5300+' },
 ];
