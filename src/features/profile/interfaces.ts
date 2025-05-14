@@ -6,6 +6,10 @@ export interface UpdatePayload {
   gender: string;
   date_of_birth: string;
   username: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  id?: string;
 }
 
 export interface ChangePasswordPayload {

@@ -13,23 +13,35 @@ interface Link {
   url: string;
   icon: React.ElementType;
   name: string;
+  isLogout?: boolean;
 }
 
 interface SidebarItemsProps {
   link: Link;
   isLastItem?: boolean;
   onClose: () => void;
+  onLogoutClick?: () => void; // Add this to handle logout modal
 }
 
 const SidebarItems = memo(function SidebarItems({
   link,
   isLastItem = false,
   onClose,
+  onLogoutClick,
 }: SidebarItemsProps) {
   const location = useLocation();
 
   const isActive = location.pathname.startsWith(link.url);
 
+  const handleItemClick = (e: React.MouseEvent) => {
+    if (link.isLogout && onLogoutClick) {
+      e.preventDefault(); // Prevent navigation
+      onLogoutClick(); // Open logout modal
+      onClose(); // Close mobile sidebar if open
+    } else {
+      onClose(); // Just close mobile sidebar for regular items
+    }
+  };
   return (
     <div className={`w-[85%] m-auto ${isLastItem ? 'mt-28' : ''}`}>
       <ListItem
@@ -57,7 +69,8 @@ const SidebarItems = memo(function SidebarItems({
               color: '#FFFFFF',
             },
           }}
-          onClickCapture={onClose}
+          // onClickCapture={onClose}
+          onClick={handleItemClick}
         >
           <ListItemIcon
             className="text-[#0B3140]"

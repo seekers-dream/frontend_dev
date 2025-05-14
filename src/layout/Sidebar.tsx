@@ -6,17 +6,19 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import { IoMenuOutline } from 'react-icons/io5';
-import { Link, Outlet } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { links } from '@/utils/sidebarLinks';
-// import { logout } from '@/features/auth/authSlice';
+import { logout } from '@/features/auth/authSlice';
 import { useAuth } from '@/hooks/useAuth';
 import ILogoWhite from '@/assets/svg/logoWhite.svg?react';
 // import ILogout from '@/assets/svg/sidebar/logout.svg?react';
 import INotifications from '@/assets/svg/sidebar/notification.svg?react';
 import SidebarItems from './SidebarItems';
+import Modal from '@/ui/Modal';
+import Button from '@/ui/Button';
 
 const drawerWidth = 250;
 
@@ -25,26 +27,62 @@ interface DashboardSidebarProps {
 }
 
 export default function DashboardSidebar(props: DashboardSidebarProps) {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const logoutUser = () => {
-  //   dispatch(logout());
-  //   navigate('/');
-  // };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutUser = () => {
+    dispatch(logout());
+    navigate('/');
+  };
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { user } = useAuth();
 
-  // const [open, setOpen] = useState(false);
+  const location = useLocation();
 
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    // setOpen(true);
+  // Function to get the page title based on current route
+  const getPageTitle = (pathname: string): string => {
+    // Remove leading slash and split by slashes
+    const path = pathname.substring(1).split('/');
+
+    // Check if we're in the dashboard
+    if (path[0] === 'dashboard') {
+      // Map routes to their display titles
+      switch (path[1]) {
+        case 'profile':
+          return 'Profile';
+        case 'listings':
+          return 'Listings';
+        case 'performance':
+          return 'Performance';
+        case 'subscriptions':
+          return 'Subscriptions';
+        case 'notifications':
+          return 'Notifications';
+        case 'messages':
+          return 'Messages';
+        case 'overview':
+          return 'Dashboard';
+        case 'help':
+          return 'Help & Support';
+        default:
+          return 'Dashboard';
+      }
+    }
+
+    // For other routes
+    return 'Seekers Dream';
   };
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const pageTitle = getPageTitle(location.pathname);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
@@ -91,6 +129,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
               key={index}
               isLastItem={index === links.length - 2}
               onClose={handleDrawerToggle}
+              onLogoutClick={link.isLogout ? handleClick : undefined}
             />
           );
         })}
@@ -124,6 +163,10 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
           >
             <IoMenuOutline />
           </IconButton>
+
+          <div className="w-full">
+            <h1 className="text-2xl font-semibold">{pageTitle}</h1>
+          </div>
 
           <div className=" w-full">
             <div className=" flex items-center gap-5 justify-end">
@@ -218,7 +261,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              backgroundColor: '#007BFF',
+              backgroundColor: '#090C1B',
             },
           }}
         >
@@ -259,29 +302,30 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
         <Outlet />
       </Box>
 
-      {/* <Modal isOpen={open} onClose={handleClose}>
+      <Modal isOpen={open} onClose={handleClose}>
         <div className="rounded-[16px] lg:w-[400px] w-[345px] px-5">
           <div className="flex flex-col items-center justify-center pt-5 max-w-[352px] mx-auto">
-            <IWarning />
+            {/* <IWarning /> */}
             <p className="text-center text-[#475467] font-medium text-base pt-2">
-              Are you sure you want to logout? You will be redirected to the
-              login page.
+              Are you sure you want to logout?
             </p>
           </div>
           <div className="flex mt-8 mb-6 justify-center gap-3 ">
             <Button
+              type="button"
               label="Cancel"
               className="w-[170px] h-[44px] font-medium bg-transparent hover:bg-transparent flex items-center justify-center text-[#344054]! border border-[#E0E0E0] rounded-lg"
               onClick={handleClose}
             />
             <Button
+              type="button"
               onClick={logoutUser}
               label="Yes"
-              className="w-[170px] h-[44px] flex font-medium items-center justify-center rounded-lg"
+              className="w-[170px] bg-red-500 text-white hover:bg-red-600 h-[44px] flex font-medium items-center justify-center rounded-lg"
             />
           </div>
         </div>
-      </Modal> */}
+      </Modal>
     </Box>
   );
 }

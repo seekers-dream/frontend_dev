@@ -55,7 +55,7 @@ export const Contact = () => {
 
   return (
     <div>
-      <div className="w-[90%] mx-auto md:flex py-10 md:py-[92px] ">
+      <div className="w-[90%] mx-auto md:flex py-32 ">
         <div className="w-full md:w-1/2  flex flex-col justify-between bg-contact-bg bg-bottom h-[500px] md:h-[810px] bg-cover bg-no-repeat  md:rounded-tl-[20px] md:rounded-bl-[20px] py-5 md:py-[53px] px-5 md:px-[52px]">
           <div className="w-full">
             <HeadingTag title="Contact Us" />
