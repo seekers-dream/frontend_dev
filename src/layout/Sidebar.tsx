@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -6,10 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import { IoMenuOutline } from 'react-icons/io5';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { IoMdArrowDropdown } from 'react-icons/io';
-import { FaRegUserCircle } from 'react-icons/fa';
 import { links } from '@/utils/sidebarLinks';
 import { logout } from '@/features/auth/authSlice';
 import { useAuth } from '@/hooks/useAuth';
@@ -19,6 +17,7 @@ import INotifications from '@/assets/svg/sidebar/notification.svg?react';
 import SidebarItems from './SidebarItems';
 import Modal from '@/ui/Modal';
 import Button from '@/ui/Button';
+import { getInitials } from '@/utils/helpers';
 
 const drawerWidth = 250;
 
@@ -28,13 +27,9 @@ interface DashboardSidebarProps {
 
 export default function DashboardSidebar(props: DashboardSidebarProps) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const logoutUser = () => {
     dispatch(logout());
-    navigate('/');
   };
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
   const { user } = useAuth();
 
   const location = useLocation();
@@ -84,26 +79,6 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
     setOpen(false);
   };
 
-  // Toggle dropdown visibility
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
-  };
-
-  // Close dropdown if clicking outside of it
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !(dropdownRef.current as HTMLElement).contains(event.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
   const { children } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -170,19 +145,18 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
 
           <div className=" w-full">
             <div className=" flex items-center gap-5 justify-end">
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={toggleDropdown}
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  {user?.profileImg ? (
+              <div className="relative">
+                <button className="flex items-center gap-2 ">
+                  {user?.avatarUrl ? (
                     <img
-                      src={user?.profileImg}
-                      alt="Profile"
-                      className="w-8 h-8 object-cover rounded-full"
+                      src={user?.avatarUrl}
+                      alt="profile"
+                      className="rounded-full size-16"
                     />
                   ) : (
-                    <FaRegUserCircle className="size-8" />
+                    <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-10 text-base flex items-center justify-center">
+                      {getInitials(user.firstName, user.lastName ?? '--')}
+                    </div>
                   )}
 
                   <div className="capitalize text-sm font-normal text-left">
@@ -192,41 +166,10 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
                     </p>
                   </div>
 
-                  <IoMdArrowDropdown
-                    className={`cursor-pointer
-                      ${dropdownOpen ? 'transform rotate-180' : ''}`}
-                  />
-
                   <div className="border-l pl-2">
                     <INotifications />
                   </div>
                 </button>
-
-                {/* Dropdown */}
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-28 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    <ul className="py-2">
-                      <li>
-                        <Link
-                          to="/dashboard/settings"
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                        >
-                          Profile
-                        </Link>
-                      </li>
-
-                      {/* Logout Link */}
-                      <li>
-                        <button
-                          onClick={handleClick}
-                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
-                        >
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                )}
               </div>
             </div>
           </div>

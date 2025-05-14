@@ -61,38 +61,39 @@ const AccountSecurity = () => {
 
         <form
           onSubmit={updatePasswordFormik.handleSubmit}
-          className="grid grid-cols-2 mt-5 gap-10"
+          className="grid grid-cols-2 mt-10 gap-10"
         >
-          <div>
-            <PasswordInput
-              label="New Password"
-              placeholder="Password"
-              name="password"
-              className="py-4"
-              getFieldProps={updatePasswordFormik.getFieldProps}
-              touched={updatePasswordFormik.touched}
-              errors={updatePasswordFormik.errors}
-            />
-          </div>
-          <div>
-            <PasswordInput
-              label="Confirm Password"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              className="py-4"
-              getFieldProps={updatePasswordFormik.getFieldProps}
-              touched={updatePasswordFormik.touched}
-              errors={updatePasswordFormik.errors}
-            />
-          </div>
-
-          <div>
-            <Button
-              label="Save Changes"
-              type="submit"
-              className="w-[178px] bg-primary text-white gap-5 items-center"
-              loading={isLoading}
-            />
+          <div className="space-y-10">
+            <div className="">
+              <PasswordInput
+                label="New Password"
+                placeholder="Password"
+                name="password"
+                className="py-4"
+                getFieldProps={updatePasswordFormik.getFieldProps}
+                touched={updatePasswordFormik.touched}
+                errors={updatePasswordFormik.errors}
+              />
+            </div>
+            <div>
+              <PasswordInput
+                label="Confirm Password"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                className="py-4"
+                getFieldProps={updatePasswordFormik.getFieldProps}
+                touched={updatePasswordFormik.touched}
+                errors={updatePasswordFormik.errors}
+              />
+            </div>
+            <div>
+              <Button
+                label="Save Changes"
+                type="submit"
+                className="w-[178px] bg-primary text-white gap-5 items-center"
+                loading={isLoading}
+              />
+            </div>
           </div>
         </form>
       </div>
