@@ -11,6 +11,7 @@ interface PasswordInputProps {
   touched: { [key: string]: boolean };
   errors: { [key: string]: string | undefined };
   required?: boolean;
+  className?: string;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
@@ -21,6 +22,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   touched,
   errors,
   required = false,
+  className,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -42,7 +44,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           type={showPassword ? 'text' : 'password'}
           id={name}
           {...getFieldProps(name)}
-          className={`outline-none border text-sm border-[#D0D5DD] py-2 px-3  shadow-xs w-full  rounded-lg mt-1
+          className={`${className} outline-none border text-sm border-[#D0D5DD] py-2 px-3  shadow-xs w-full  rounded-lg mt-1
                 ${touched[name] && errors[name] ? 'border-red-500' : ''}
               `}
         />

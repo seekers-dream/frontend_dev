@@ -48,5 +48,6 @@ export const links = [
     name: 'Logout',
     url: '/dashboard/logout',
     icon: ILogout,
+    isLogout: true,
   },
 ];

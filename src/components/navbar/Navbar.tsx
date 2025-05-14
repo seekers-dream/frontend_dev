@@ -15,6 +15,8 @@ import { useDispatch } from 'react-redux';
 import { FiPlus } from 'react-icons/fi';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { LuLayoutDashboard } from 'react-icons/lu';
+import ILogoWhite from '@/assets/svg/logoWhite.svg?react';
+import { getInitials } from '@/utils/helpers';
 
 const navLinks = [
   {
@@ -40,8 +42,8 @@ const navLinks = [
 ];
 
 interface NavbarProps {
-  background: string;
-  color: string;
+  background?: string;
+  color?: string;
 }
 
 const Navbar = ({ background, color }: NavbarProps) => {
@@ -52,7 +54,26 @@ const Navbar = ({ background, color }: NavbarProps) => {
     forgotPassword: false,
     logout: false,
   });
+  const [hasScrolled, setHasScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Change to black background after scrolling 50px
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 50) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   type OpenKeys = 'login' | 'register' | 'forgotPassword' | 'logout';
 
   const handleIsOpen = (type: OpenKeys) => {
@@ -103,9 +124,17 @@ const Navbar = ({ background, color }: NavbarProps) => {
   };
 
   return (
-    <nav className={`sticky top-0 z-50 ${background} `}>
+    <nav
+      className={`fixed w-full top-0 z-50 transition-colors duration-300 ${
+        hasScrolled ? 'bg-black text-white' : background || 'bg-transparent'
+      }`}
+    >
       <div className="flex items-center justify-between  max-w-[90%] mx-auto py-2 md:py-3">
-        <ILogo className="w-1/2 md:w-[202px]" />
+        {hasScrolled ? (
+          <ILogoWhite className="w-1/2 md:w-[202px]" />
+        ) : (
+          <ILogo className="w-1/2 md:w-[202px]" />
+        )}
         <div className="hidden lg:block">
           <ul className="flex gap-9">
             {navLinks.map((link) => (
@@ -143,9 +172,22 @@ const Navbar = ({ background, color }: NavbarProps) => {
                 onClick={handleUserMenu}
                 className="flex items-center gap-1 cursor-pointer"
               >
-                <RxAvatar className="size-16" />
+                {user?.avatarUrl ? (
+                  <img
+                    src={user?.avatarUrl}
+                    alt="profile"
+                    className="rounded-full size-16"
+                  />
+                ) : (
+                  <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-10 text-base flex items-center justify-center">
+                    {getInitials(user.firstName, user.lastName ?? '--')}
+                  </div>
+                )}
 
-                <IoMdArrowDropdown size={24} className="text-white " />
+                <IoMdArrowDropdown
+                  size={24}
+                  className={`text-white ${isUserMenu ? 'rotate-180' : ''}`}
+                />
               </div>
             </div>
           ) : (
@@ -200,13 +242,13 @@ const Navbar = ({ background, color }: NavbarProps) => {
             {!isMobile ? (
               <CiMenuBurger
                 size={30}
-                className="text-primary"
+                className="text-white"
                 onClick={handleMobileMenu}
               />
             ) : (
               <LiaTimesSolid
                 size={30}
-                className="text-primary"
+                className="text-white"
                 onClick={handleMobileMenu}
               />
             )}
@@ -231,8 +273,20 @@ const Navbar = ({ background, color }: NavbarProps) => {
                 <div className="border-y border-[#EAECF0] my-3 py-3  ">
                   {isAuthenticated ? (
                     <div className="flex gap-3 items-center">
-                      <RxAvatar className="size-9" />
-                      <div className="text-xs">
+                      <div>
+                        {user?.avatarUrl ? (
+                          <img
+                            src={user?.avatarUrl}
+                            alt="profile"
+                            className="rounded-full size-9"
+                          />
+                        ) : (
+                          <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-7 text-[8px] flex items-center justify-center">
+                            {getInitials(user.firstName, user.lastName ?? '--')}
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-[80%] text-xs">
                         <h1 className="font-semibold">
                           {user.firstName} {user.lastName}
                         </h1>

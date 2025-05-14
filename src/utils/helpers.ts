@@ -28,3 +28,18 @@ export const formatTime = (time: number) => {
     .toString()
     .padStart(2, '0')}`;
 };
+
+export const getInitials = (firstName?: string, lastName?: string): string => {
+  if (!firstName && !lastName) return '?';
+
+  const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';
+  const lastInitial = lastName ? lastName.charAt(0).toUpperCase() : '';
+
+  return `${firstInitial}${lastInitial}`;
+};
+
+export const getMaxDate = () => {
+  const today = new Date();
+  const maxDate = new Date(today.setFullYear(today.getFullYear() - 18));
+  return maxDate.toISOString().split('T')[0];
+};

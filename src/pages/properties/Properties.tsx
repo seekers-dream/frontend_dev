@@ -46,7 +46,7 @@ export const Properties = () => {
   };
 
   return (
-    <div>
+    <div className="pt-32">
       <FindProperty />
       <div className="w-[90%] mx-auto py-10">
         <div className="w-full md:w-[814px]">

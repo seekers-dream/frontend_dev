@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -6,17 +6,18 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import { IoMenuOutline } from 'react-icons/io5';
-import { Link, Outlet } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-import { IoMdArrowDropdown } from 'react-icons/io';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { links } from '@/utils/sidebarLinks';
-// import { logout } from '@/features/auth/authSlice';
+import { logout } from '@/features/auth/authSlice';
 import { useAuth } from '@/hooks/useAuth';
 import ILogoWhite from '@/assets/svg/logoWhite.svg?react';
 // import ILogout from '@/assets/svg/sidebar/logout.svg?react';
 import INotifications from '@/assets/svg/sidebar/notification.svg?react';
 import SidebarItems from './SidebarItems';
+import Modal from '@/ui/Modal';
+import Button from '@/ui/Button';
+import { getInitials } from '@/utils/helpers';
 
 const drawerWidth = 250;
 
@@ -25,47 +26,59 @@ interface DashboardSidebarProps {
 }
 
 export default function DashboardSidebar(props: DashboardSidebarProps) {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const logoutUser = () => {
-  //   dispatch(logout());
-  //   navigate('/');
-  // };
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
+  const logoutUser = () => {
+    dispatch(logout());
+  };
   const { user } = useAuth();
 
-  // const [open, setOpen] = useState(false);
+  const location = useLocation();
 
-  const handleClick = (event: React.MouseEvent) => {
-    event.preventDefault();
-    // setOpen(true);
-  };
+  // Function to get the page title based on current route
+  const getPageTitle = (pathname: string): string => {
+    // Remove leading slash and split by slashes
+    const path = pathname.substring(1).split('/');
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // Toggle dropdown visibility
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
-  };
-
-  // Close dropdown if clicking outside of it
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !(dropdownRef.current as HTMLElement).contains(event.target as Node)
-      ) {
-        setDropdownOpen(false);
+    // Check if we're in the dashboard
+    if (path[0] === 'dashboard') {
+      // Map routes to their display titles
+      switch (path[1]) {
+        case 'profile':
+          return 'Profile';
+        case 'listings':
+          return 'Listings';
+        case 'performance':
+          return 'Performance';
+        case 'subscriptions':
+          return 'Subscriptions';
+        case 'notifications':
+          return 'Notifications';
+        case 'messages':
+          return 'Messages';
+        case 'overview':
+          return 'Dashboard';
+        case 'help':
+          return 'Help & Support';
+        default:
+          return 'Dashboard';
       }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+    }
+
+    // For other routes
+    return 'Seekers Dream';
+  };
+
+  const pageTitle = getPageTitle(location.pathname);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const { children } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -91,6 +104,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
               key={index}
               isLastItem={index === links.length - 2}
               onClose={handleDrawerToggle}
+              onLogoutClick={link.isLogout ? handleClick : undefined}
             />
           );
         })}
@@ -125,21 +139,24 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
             <IoMenuOutline />
           </IconButton>
 
+          <div className="w-full">
+            <h1 className="text-2xl font-semibold">{pageTitle}</h1>
+          </div>
+
           <div className=" w-full">
             <div className=" flex items-center gap-5 justify-end">
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={toggleDropdown}
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  {user?.profileImg ? (
+              <div className="relative">
+                <button className="flex items-center gap-2 ">
+                  {user?.avatarUrl ? (
                     <img
-                      src={user?.profileImg}
-                      alt="Profile"
-                      className="w-8 h-8 object-cover rounded-full"
+                      src={user?.avatarUrl}
+                      alt="profile"
+                      className="rounded-full size-16"
                     />
                   ) : (
-                    <FaRegUserCircle className="size-8" />
+                    <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-10 text-base flex items-center justify-center">
+                      {getInitials(user.firstName, user.lastName ?? '--')}
+                    </div>
                   )}
 
                   <div className="capitalize text-sm font-normal text-left">
@@ -149,41 +166,10 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
                     </p>
                   </div>
 
-                  <IoMdArrowDropdown
-                    className={`cursor-pointer
-                      ${dropdownOpen ? 'transform rotate-180' : ''}`}
-                  />
-
                   <div className="border-l pl-2">
                     <INotifications />
                   </div>
                 </button>
-
-                {/* Dropdown */}
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-28 bg-white border border-gray-200 rounded-lg shadow-lg">
-                    <ul className="py-2">
-                      <li>
-                        <Link
-                          to="/dashboard/settings"
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                        >
-                          Profile
-                        </Link>
-                      </li>
-
-                      {/* Logout Link */}
-                      <li>
-                        <button
-                          onClick={handleClick}
-                          className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
-                        >
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -218,7 +204,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              backgroundColor: '#007BFF',
+              backgroundColor: '#090C1B',
             },
           }}
         >
@@ -259,29 +245,30 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
         <Outlet />
       </Box>
 
-      {/* <Modal isOpen={open} onClose={handleClose}>
+      <Modal isOpen={open} onClose={handleClose}>
         <div className="rounded-[16px] lg:w-[400px] w-[345px] px-5">
           <div className="flex flex-col items-center justify-center pt-5 max-w-[352px] mx-auto">
-            <IWarning />
+            {/* <IWarning /> */}
             <p className="text-center text-[#475467] font-medium text-base pt-2">
-              Are you sure you want to logout? You will be redirected to the
-              login page.
+              Are you sure you want to logout?
             </p>
           </div>
           <div className="flex mt-8 mb-6 justify-center gap-3 ">
             <Button
+              type="button"
               label="Cancel"
               className="w-[170px] h-[44px] font-medium bg-transparent hover:bg-transparent flex items-center justify-center text-[#344054]! border border-[#E0E0E0] rounded-lg"
               onClick={handleClose}
             />
             <Button
+              type="button"
               onClick={logoutUser}
               label="Yes"
-              className="w-[170px] h-[44px] flex font-medium items-center justify-center rounded-lg"
+              className="w-[170px] bg-red-500 text-white hover:bg-red-600 h-[44px] flex font-medium items-center justify-center rounded-lg"
             />
           </div>
         </div>
-      </Modal> */}
+      </Modal>
     </Box>
   );
 }

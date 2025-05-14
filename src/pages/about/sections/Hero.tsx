@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div>
       {' '}
-      <div className="w-[90%] mx-auto py-5 md:py-16">
+      <div className="w-[90%] mx-auto pt-32 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-20">
           {/* sections 1 */}
           <div>

@@ -10,12 +10,14 @@ import {
 export const profileApi = createApi({
   reducerPath: 'profileApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['Profile'],
   endpoints: (builder) => ({
-    getProfile: builder.mutation<IResponse, void>({
+    getProfile: builder.query<IResponse, void>({
       query: () => ({
         url: `/profile`,
         method: 'GET',
       }),
+      providesTags: ['Profile'],
     }),
 
     updateProfile: builder.mutation<IResponse, UpdatePayload>({
@@ -24,6 +26,7 @@ export const profileApi = createApi({
         method: 'PATCH',
         body: payload,
       }),
+      invalidatesTags: ['Profile'],
     }),
 
     updateProfilePicture: builder.mutation<
@@ -33,14 +36,15 @@ export const profileApi = createApi({
       query: (payload) => ({
         url: `/upload_avatar/${payload.id}/media`,
         method: 'POST',
-        body: payload,
+        body: payload.avatar,
       }),
+      invalidatesTags: ['Profile'],
     }),
 
     changePassword: builder.mutation<IResponse, ChangePasswordPayload>({
       query: (payload) => ({
         url: `/profile/change-password`,
-        method: 'PATCH',
+        method: 'POST',
         body: payload,
       }),
     }),
@@ -48,7 +52,7 @@ export const profileApi = createApi({
 });
 
 export const {
-  useGetProfileMutation,
+  useGetProfileQuery,
   useUpdateProfileMutation,
   useUpdateProfilePictureMutation,
   useChangePasswordMutation,
