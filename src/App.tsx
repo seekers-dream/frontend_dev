@@ -9,6 +9,7 @@ import {
   Messages,
   Overview,
   Performance,
+  Profile,
   Properties,
   PropertyDetails,
   ResetPassword,
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <div>
-      {!isAuthPages && <Navbar background="bg-white" color="text-black" />}
+      {!isAuthPages && <Navbar background="bg-white" />}
 
       <Routes>
         <Route path="/reset" element={<ResetPassword />} />
@@ -58,7 +59,7 @@ function App() {
           <Route path="listings" element={<Listings />} />
           <Route path="messages" element={<Messages />} />
           <Route path="performance" element={<Performance />} />
-          <Route path="profile" element={<Overview />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="subscriptions" element={<Subscriptions />} />
           <Route path="help" element={<Help />} />
         </Route>

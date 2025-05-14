@@ -12,6 +12,8 @@ export interface User extends IResponse {
   firstName: string;
   lastName: string;
   email: string;
+  id: string;
+  phoneNumber: string;
 }
 
 export interface RegisterPayload {

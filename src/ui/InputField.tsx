@@ -6,6 +6,8 @@ interface InputFieldProps {
   name: string;
   type?: string;
   placeholder?: string;
+  max?: string;
+  min?: string;
   getFieldProps: (name: string) => any;
   touched: boolean;
   errors: string | undefined;
@@ -20,6 +22,8 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   type = 'text',
   getFieldProps,
+  max,
+  min,
   touched,
   errors,
   required = false,
@@ -32,6 +36,8 @@ const InputField: React.FC<InputFieldProps> = ({
       <input
         type={type}
         id={name}
+        max={max}
+        min={min}
         {...getFieldProps(name)}
         placeholder={placeholder}
         className={`${className} outline-none text-sm border border-[#D9D9D9] shadow-xs w-full py-2 px-3 rounded-lg mt-1
