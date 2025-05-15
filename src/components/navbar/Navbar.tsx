@@ -8,7 +8,6 @@ import { RxAvatar } from 'react-icons/rx';
 import Modal from '@/ui/Modal';
 import { Login, Register } from '@/pages';
 import { useAuth } from '@/hooks/useAuth';
-import ITruck from '@/assets/svg/truck.svg?react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { logout } from '@/features/auth/authSlice';
 import { useDispatch } from 'react-redux';
@@ -166,7 +165,6 @@ const Navbar = ({ background, color }: NavbarProps) => {
                   <FiPlus />
                   <p>Add Listing</p>
                 </div>
-                <ITruck />
               </div>
               <div
                 onClick={handleUserMenu}
@@ -176,7 +174,7 @@ const Navbar = ({ background, color }: NavbarProps) => {
                   <img
                     src={user?.avatarUrl}
                     alt="profile"
-                    className="rounded-full size-16"
+                    className="rounded-full size-10 object-cover"
                   />
                 ) : (
                   <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-10 text-base flex items-center justify-center">
@@ -257,28 +255,28 @@ const Navbar = ({ background, color }: NavbarProps) => {
           <div>
             {isMobile && (
               <div className="absolute top-10 right-0 w-48 bg-white shadow-lg border border-[#EAECF0] rounded p-4">
-                <ul className="flex flex-col gap-4">
+                <ul className="flex flex-col text-[#475467] font-semibold gap-4">
                   {navLinks.map((link) => (
                     <li key={link.label}>
-                      <NavLink
-                        to={link.url}
-                        className="text-[#475467] font-semibold"
-                      >
+                      <NavLink to={link.url} className="">
                         {link.label}
                       </NavLink>
                     </li>
                   ))}
+                  {isAuthenticated && (
+                    <Link to="/dashboard/overview">Dashboard</Link>
+                  )}
                 </ul>
 
                 <div className="border-y border-[#EAECF0] my-3 py-3  ">
                   {isAuthenticated ? (
-                    <div className="flex gap-3 items-center">
+                    <div className="flex gap-2 items-center">
                       <div>
                         {user?.avatarUrl ? (
                           <img
                             src={user?.avatarUrl}
                             alt="profile"
-                            className="rounded-full size-9"
+                            className="rounded-full size-9 object-cover"
                           />
                         ) : (
                           <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-7 text-[8px] flex items-center justify-center">
@@ -286,11 +284,11 @@ const Navbar = ({ background, color }: NavbarProps) => {
                           </div>
                         )}
                       </div>
-                      <div className="w-[80%] text-xs">
-                        <h1 className="font-semibold">
+                      <div className="w-[70%] text-xs">
+                        <h1 className="font-semibold text-primary">
                           {user.firstName} {user.lastName}
                         </h1>
-                        <h1 className="font-medium text-primary">
+                        <h1 className="font-medium text-primary break-words">
                           {user?.email}
                         </h1>
                       </div>

@@ -151,7 +151,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
                     <img
                       src={user?.avatarUrl}
                       alt="profile"
-                      className="rounded-full size-16"
+                      className="rounded-full size-10"
                     />
                   ) : (
                     <div className="relative font-medium rounded-full bg-gray-200 text-gray-600 size-10 text-base flex items-center justify-center">
