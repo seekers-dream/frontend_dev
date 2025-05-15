@@ -85,7 +85,11 @@ const ProfileHeading = ({ data }: { data: ProfileData }) => {
       <div className="flex gap-5 items-center">
         <h1 className="text-2xl font-semibold text-[#090C1B]">
           {avatarUrl ? (
-            <img src={avatarUrl} alt="profile" />
+            <img
+              src={avatarUrl}
+              alt="profile"
+              className="size-32 rounded-full object-cover"
+            />
           ) : (
             <div className="relative rounded-full bg-gray-200 text-gray-600 size-32 text-5xl flex items-center justify-center">
               {getInitials(firstName, lastName ?? '--')}
