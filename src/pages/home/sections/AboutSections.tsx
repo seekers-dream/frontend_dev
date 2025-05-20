@@ -33,22 +33,26 @@ const AboutSection = ({
         <div className="md:flex items-center gap-10 justify-between">
           <div className="w-full md:w-1/2">
             <HeadingTag title={title} />
-            <h1 className="text-4xl md:text-6xl md:leading-[72px] font-semibold">
+            <h1 className="text-4xl leading-[45px] lg:text-6xl lg:leading-[72px] font-semibold">
               {subTitle}
             </h1>
           </div>
 
-          <div className="w-full md:w-1/2 text-[#8C8C8C] text-sm md:text-lg mt-5 md:mt-0">
+          <div className="w-full md:w-1/2 text-[#8C8C8C] text-sm lg:text-lg mt-5 md:mt-0">
             <p>{content}</p>
           </div>
         </div>
 
         <div className="mt-14 flex flex-col md:flex-row gap-5">
           <div className="relative">
-            <img src={about1} alt="image" className="rounded-2xl h-[320px]" />
+            <img
+              src={about1}
+              alt="image"
+              className="rounded-2xl h-[320px] object-cover"
+            />
             <div className="absolute inset-0 bg-black bg-opacity-50 rounded-2xl"></div>
 
-            <div className="absolute bottom-5 text-white mx-10">
+            <div className="absolute bottom-5 text-white mx-5 lg:mx-10">
               <h1 className="text-xl font-semibold">Family House</h1>
               <p className="text-base pt-4">
                 Discover modern family living with spacious layouts and top-tier
@@ -61,7 +65,7 @@ const AboutSection = ({
             <img
               src={about2}
               alt="image"
-              className="rounded-2xl h-full w-full"
+              className="rounded-2xl h-full w-full object-cover"
             />
           </div>
           <div>

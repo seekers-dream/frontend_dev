@@ -91,11 +91,11 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
       <Toolbar
         sx={{
           padding: '32px 0',
+          justifyContent: 'center',
         }}
       >
         <ILogoWhite />
       </Toolbar>
-
       <List>
         {links.map((link, index) => {
           return (
@@ -192,6 +192,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
         }}
         aria-label="mailbox folders"
       >
+        {/* mobile view */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
@@ -211,6 +212,7 @@ export default function DashboardSidebar(props: DashboardSidebarProps) {
           {drawer}
         </Drawer>
 
+        {/* desktop view */}
         <Drawer
           variant="permanent"
           sx={{

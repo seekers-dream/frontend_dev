@@ -46,6 +46,10 @@ export const footer = [
         url: '/logistics',
       },
       {
+        name: 'Partnership',
+        url: '/partnership',
+      },
+      {
         name: 'Virtual Tour',
         url: '/',
       },

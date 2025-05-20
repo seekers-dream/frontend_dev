@@ -37,12 +37,12 @@ const Properties = () => {
         <div className="md:flex items-center justify-between">
           <div className="w-full md:w-1/2">
             <HeadingTag title="Fetured Properties" />
-            <h1 className="text-4xl md:text-6xl md:leading-[72px] font-semibold">
+            <h1 className="text-4xl leading-[45px]  lg:text-6xl lg:leading-[72px] font-semibold">
               Discover SeekersDream Properties
             </h1>
           </div>
 
-          <div className="w-full md:w-1/2 text-[#8C8C8C] text-sm md:text-lg mt-5 md:mt-0">
+          <div className="w-full md:w-1/2 text-[#8C8C8C] text-sm lg:text-lg mt-5 md:mt-0">
             <p>
               Explore an exclusive selection of premium properties, meticulously
               curated to provide you with the best in luxury living and prime
@@ -58,7 +58,7 @@ const Properties = () => {
           />
         </div> */}
 
-        <div className="grid gap-5 grid-cols-1 md:grid-cols-3 mt-5">
+        <div className="grid gap-5 grid-cols-1 lg:grid-cols-3 mt-5">
           {isLoading ? (
             <div className="col-span-3 flex justify-center items-center">
               <p className="text-xl">Loading...</p>
