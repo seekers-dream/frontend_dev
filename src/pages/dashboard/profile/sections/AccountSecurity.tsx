@@ -51,7 +51,7 @@ const AccountSecurity = () => {
 
   return (
     <div className="">
-      <div className="bg-white rounded-b-lg py-6 px-9 relative mt-16">
+      <div className="bg-white rounded-b-lg py-6 px-9 relative">
         <div className="text-black">
           <h1 className="font-medium text-xl">Account Security</h1>
           <p className="text-base mt-1">
@@ -61,7 +61,7 @@ const AccountSecurity = () => {
 
         <form
           onSubmit={updatePasswordFormik.handleSubmit}
-          className="grid grid-cols-2 mt-10 gap-10"
+          className="space-y-5 lg:space-y-0 lg:grid grid-cols-2 mt-10 gap-10"
         >
           <div className="space-y-10">
             <div className="">
@@ -90,7 +90,7 @@ const AccountSecurity = () => {
               <Button
                 label="Save Changes"
                 type="submit"
-                className="w-[178px] bg-primary text-white gap-5 items-center"
+                className="w-full lg:w-[178px] bg-primary text-white gap-5 items-center"
                 loading={isLoading}
               />
             </div>

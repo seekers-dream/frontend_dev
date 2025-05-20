@@ -1,5 +1,5 @@
 import AboutSection from '../home/sections/AboutSections';
-import Hero from './sections/Hero';
+import Hero from './sections/LogisticsHero';
 import about1 from '@/assets/images/about.jpg';
 import about2 from '@/assets/images/about2.png';
 import about3 from '@/assets/images/about3.png';

@@ -42,7 +42,7 @@ const Testimonials = () => {
         <div>
           <div className="w-full ">
             <HeadingTag title="Testimonial" />
-            <h1 className="text-4xl md:text-6xl md:leading-[72px] font-semibold">
+            <h1 className="text-4xl lg:text-6xl lg:leading-[72px] font-semibold">
               What People Are Saying
             </h1>
             <p className="text-[#8C8C8C] mt-3 text-sm md:text-lg">
@@ -54,7 +54,7 @@ const Testimonials = () => {
 
         <div className="max-w-[1000px] mx-auto relative">
           <div className="text-center">
-            <h1 className="text-black text-2xl md:text-4xl md:leading-[48px] font-medium mt-10 text-center">
+            <h1 className="text-black text-2xl lg:text-4xl lg:leading-[48px] font-medium mt-10 text-center">
               {testimonies[activeIndex].text}
             </h1>
             <p className="pb-2 text-black font-medium text-sm mt-10">

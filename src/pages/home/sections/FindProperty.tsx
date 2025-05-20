@@ -16,7 +16,7 @@ const FindProperty = () => {
         </div>
 
         <div className="mt-10 flex flex-col md:flex-row mx-auto gap-10 flex-wrap justify-between">
-          <div className="md:text-center">
+          <div className="text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Looking for
             </label>
@@ -31,48 +31,48 @@ const FindProperty = () => {
               <option value="buy">Buy</option>
             </select>
           </div>
-          <div className="md:text-center">
+          <div className="text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Location
             </label>
 
             <input
               type="text"
-              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              className=" w-full px-4 py-2  text-center placeholder:text-center outline-0 border-b border-[#F0F0F0]"
               name="city"
               placeholder="City"
             />
           </div>
-          <div className="md:text-center">
+          <div className="text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               State
             </label>
             <input
               type="text"
-              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              className=" w-full px-4 py-2 text-center placeholder:text-center outline-0 border-b border-[#F0F0F0]"
               name="state "
               placeholder="State"
             />
           </div>
-          <div className="md:text-center">
+          <div className="text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Property Type
             </label>
             <input
               type="text"
-              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              className=" w-full px-4 py-2 text-center placeholder:text-center outline-0 border-b border-[#F0F0F0]"
               name="flattype "
               placeholder="2 or 3 bedroom flat"
             />
           </div>
 
-          <div className="md:text-center">
+          <div className="text-center">
             <label htmlFor="" className="block  text-[#8C8C8C] text-base ">
               Budget
             </label>
             <input
               type="text"
-              className=" w-full px-4 py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
+              className=" w-full px-4 text-center py-2 placeholder:text-center outline-0 border-b border-[#F0F0F0]"
               name="price "
               placeholder="0.5-5M"
             />

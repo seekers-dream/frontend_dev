@@ -124,11 +124,11 @@ const Navbar = ({ background, color }: NavbarProps) => {
 
   return (
     <nav
-      className={`fixed w-full top-0 z-50 transition-colors duration-300 ${
+      className={`fixed w-full top-0 z-50 transition-colors duration-500 ${
         hasScrolled ? 'bg-black text-white' : background || 'bg-transparent'
       }`}
     >
-      <div className="flex items-center justify-between  max-w-[90%] mx-auto py-2 md:py-3">
+      <div className="flex items-center justify-between  w-[90%] mx-auto py-2 md:py-3">
         {hasScrolled ? (
           <ILogoWhite className="w-1/2 md:w-[202px]" />
         ) : (
