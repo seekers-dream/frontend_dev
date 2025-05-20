@@ -5,3 +5,4 @@ export * from './about';
 export * from './properties';
 export * from './contact';
 export * from './logistics';
+export * from './partnership';

@@ -17,12 +17,12 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   handleTabClick,
 }) => {
   return (
-    <div className="flex text-sm gap-5">
+    <div className="inline-flex flex-col md:flex-row text-sm gap-5">
       {tabs.map((tab) => (
         <button
           key={tab.name}
           onClick={() => handleTabClick(tab.name)}
-          className={` mx-3 px-1 py-1 text-xl cursor-pointer font-semibold border-b-2   transition-colors ${
+          className={` inline-block  px-1 py-1 text-lg md:text-xl cursor-pointer font-semibold border-b-2   transition-colors ${
             activeTab === tab.name
               ? 'text-[#090C1B]  border-[#090C1B]'
               : 'border-b-0 text-[#999999] '

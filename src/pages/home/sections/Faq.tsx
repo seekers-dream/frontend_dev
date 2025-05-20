@@ -52,14 +52,14 @@ const Faq = () => {
 
   return (
     <div className="bg-[#F9FAFB]">
-      <div className="w-[90%] mx-auto py-16 md:flex justify-between gap-10 ">
-        <div className="w-full md:w-1/2  py-5">
+      <div className="w-[90%] mx-auto py-16 flex flex-col-reverse lg:flex-row  justify-between gap-10 ">
+        <div className="w-full lg:w-1/2  py-5">
           {faqs?.map((faq: faqProps) => <FaqItem key={faq._id} faq={faq} />)}
         </div>
 
-        <div className="w-full md:w-[550px] text-right">
+        <div className="w-full lg:w-[550px] text-center lg:text-right">
           <HeadingTag title="FAQ's" />
-          <h1 className="text-4xl md:text-6xl md:leading-[72px] font-semibold">
+          <h1 className="text-4xl lg:text-6xl lg:leading-[72px] font-semibold">
             Frequently Asked Questions
           </h1>
           <p className="text-[#8C8C8C] mt-3 text-sm">

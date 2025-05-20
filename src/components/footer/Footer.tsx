@@ -8,8 +8,8 @@ const Footer = () => {
     <div className="bg-black text-white">
       <div className="w-[90%] mx-auto">
         <ILogoWhite />
-        <div className="md:grid grid-cols-8 gap-10 pb-10">
-          <div className="col-span-2 md:pl-6">
+        <div className="lg:grid grid-cols-8 gap-10 pb-10">
+          <div className="col-span-2 lg:pl-6">
             <p className="text-base leading-7">
               Discover meticulously crafted homes and properties, blending
               contemporary aesthetics with sustainable living.
@@ -29,7 +29,7 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="col-span-4 grid grid-cols-2 md:grid-cols-4 gap-5 mt-10 md:mt-0">
+          <div className="col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-5 mt-10 lg:mt-0">
             {footer.map((item, idx) => (
               <div key={idx} className="text-white mb-5">
                 <h1 className="text-base font-semibold mb-4 ">

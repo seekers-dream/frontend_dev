@@ -8,6 +8,7 @@ import {
   Logistics,
   Messages,
   Overview,
+  Partnership,
   Performance,
   Profile,
   Properties,
@@ -29,6 +30,7 @@ function App() {
     location.pathname === '/reset' ||
     location.pathname === '/' ||
     location.pathname === '/logistics' ||
+    location.pathname === '/partnership' ||
     location.pathname.includes('/dashboard');
 
   const isFooter =
@@ -46,6 +48,7 @@ function App() {
         <Route path="/properties" element={<Properties />} />
         <Route path="/property/:propertyId" element={<PropertyDetails />} />
         <Route path="/logistics" element={<Logistics />} />
+        <Route path="/partnership" element={<Partnership />} />
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/dashboard"

@@ -85,13 +85,21 @@ const ProfileHeading = ({ data }: { data: ProfileData }) => {
       <div className="flex gap-5 items-center">
         <h1 className="text-2xl font-semibold text-[#090C1B]">
           {avatarUrl ? (
-            <img
-              src={avatarUrl}
-              alt="profile"
-              className="size-32 rounded-full object-cover"
-            />
+            <div className="relative">
+              <img
+                src={avatarUrl}
+                alt="profile"
+                className="size-20 md:size-32 rounded-full object-cover"
+              />
+              <div>
+                <FaRegEdit
+                  onClick={handleEditIconClick}
+                  className="absolute right-0 bottom-0 cursor-pointer size-5 "
+                />
+              </div>
+            </div>
           ) : (
-            <div className="relative rounded-full bg-gray-200 text-gray-600 size-32 text-5xl flex items-center justify-center">
+            <div className="relative rounded-full bg-gray-200 text-gray-600 size-20 md:size-32 text-4xl md:text-5xl flex items-center justify-center">
               {getInitials(firstName, lastName ?? '--')}
 
               <div>
@@ -111,7 +119,7 @@ const ProfileHeading = ({ data }: { data: ProfileData }) => {
           onChange={handleFileChange}
         />
         <div className="text-black">
-          <h1 className=" text-2xl font-semibold">
+          <h1 className="text-xl md:text-2xl font-semibold">
             {firstName} {lastName}
           </h1>
           <p className="text-sm text-gray-400 font-normal">{email ?? '--'}</p>
@@ -124,7 +132,7 @@ const ProfileHeading = ({ data }: { data: ProfileData }) => {
         </div>
       </div>
 
-      <div className=" absolute top-8 right-8 rounded-lg bg-[#090C1B1A] h-[44px] w-[159px]  border border-[#090C1B1A] ">
+      <div className="hidden lg:block absolute top-8 right-8 rounded-lg bg-[#090C1B1A] h-[44px] w-[159px]  border border-[#090C1B1A] ">
         <button className="flex items-center gap-3 text-black font-semibold rounded-full px-4 py-2">
           <MdOutlineEdit />
           {isLoading ? 'Uploading...' : 'Edit Profile'}

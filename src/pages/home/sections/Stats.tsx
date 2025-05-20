@@ -12,7 +12,7 @@ const Stats = () => {
         {statsData.map((stat, index) => (
           <div key={index} className="text-white mx-4">
             <p className="font-medium text-[#8C8C8C] pb-3">{stat.title}</p>
-            <h1 className="font-semibold text-6xl">{stat.value}</h1>
+            <h1 className="font-semibold text-4xl lg:text-6xl">{stat.value}</h1>
           </div>
         ))}
       </div>

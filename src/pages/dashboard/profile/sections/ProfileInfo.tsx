@@ -83,7 +83,7 @@ const ProfileInfo = () => {
 
         <form
           onSubmit={updateProfileFormik.handleSubmit}
-          className="grid grid-cols-2 mt-5 gap-10"
+          className="lg:grid  space-y-5 lg:space-y-0 grid-cols-2 mt-5 gap-10"
         >
           <div>
             <InputField
@@ -208,7 +208,7 @@ const ProfileInfo = () => {
             <Button
               label="Save Changes"
               type="submit"
-              className="w-[178px] bg-primary text-white gap-5 items-center"
+              className="w-full lg:w-[178px] bg-primary text-white gap-5 items-center"
               loading={isLoading}
             />
           </div>
